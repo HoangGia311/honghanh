@@ -24,7 +24,7 @@ class UserCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|unique:users,email,$this->id,id',
+            'email' => 'required|unique:users,email',
             'name' => 'required',
         ];
     }
