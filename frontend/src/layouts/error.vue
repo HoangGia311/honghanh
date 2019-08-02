@@ -13,7 +13,8 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		background: $primary;
+		background: #fff;
+		color:$text;
 		user-select: none;
 	}
 </style>

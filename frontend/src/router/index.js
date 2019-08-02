@@ -14,7 +14,7 @@ const router = new Router({
     },
 	routes: [
 		{
-			path: '/',
+			path: '/admin',
 			meta : {
 				middleware : [auth],
 			},
@@ -22,21 +22,47 @@ const router = new Router({
 			children : [
 				{
 					path : '',
-					name : 'Dashboard',
 					meta : {
 						middleware : [auth]
 					},
-					component: () => import('@/views/dashboard/index.vue'),
+					component: Layout,
+					children : [
+						{
+							path : '',
+							name : 'Dashboard',
+							meta : {
+								middleware : [auth]
+							},
+							component: () => import('@/views/dashboard/index.vue'),
+						},
+					]
+				},
+				{
+					path : 'users',
+					meta : {
+						middleware : [auth]
+					},
+					component: Layout,
+					children : [
+						{
+							path : '',
+							name : 'User',
+							meta : {
+								middleware : [auth]
+							},
+							component: () => import('@/views/user/index.vue'),
+						},
+					]
+				},
+				{
+					path: 'login',
+					name: 'Login',
+					meta : {
+						layout: 'auth'
+					},
+					component: () => import('@/views/auth/index.vue'),
 				},
 			]
-		},
-		{
-			path: '/login',
-			name: 'Login',
-			meta : {
-				layout: 'auth'
-			},
-			component: () => import('@/views/auth/index.vue'),
 		},
 		{
 			path: '*',

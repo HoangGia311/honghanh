@@ -1,14 +1,11 @@
 export default {
-    LOGIN({ commit } , { email , password , code , is_guest }){
+    LOGIN({ commit } ,  payload){
         return new Promise(function(resolve, reject) {
-            var url = '/api/users/login'
-            axios.post(url, formdata )
+            axios.post('/api/login', payload )
             .then(function (res) {
-                let { status , data } = res.data 
-                if( status ){
-                    let { token }  = data 
-                    commit('login',{ token })
-                    
+                let { code , data } = res.data 
+                if( code ){
+                    commit('login', data)
                 }
                 resolve(res)
             })
@@ -20,4 +17,19 @@ export default {
     LOGOUT({commit}){
         commit('logout')
     },
+    GET_USER({commit}){
+        return new Promise(function(resolve, reject) {
+            axios.post('/api/user')
+            .then(function (res) {
+                let { code , data } = res.data 
+                if( code ){
+                    // commit('login', data)
+                }
+                resolve(res)
+            })
+            .catch(function (err) {
+                reject(err)
+            });
+        });
+    }
 }

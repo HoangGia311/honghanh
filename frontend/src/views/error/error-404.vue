@@ -6,7 +6,7 @@
 </template>
 <style lang="scss" scoped>
     .app-error-404{
-        color:#fff;
+        color:$text;
         text-align: center;
         h1{
             font-size: 100px;

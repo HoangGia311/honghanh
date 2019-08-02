@@ -7,7 +7,6 @@
     "build": "rimraf ../public/{js,css,img} && vue-cli-service build --no-clean",
     "lint": "vue-cli-service lint",
     "dev": "npm run serve"
-
   },
   "dependencies": {
     "@johmun/vue-tags-input": "^2.1.0",
@@ -25,7 +24,6 @@
     "vue-extend-layout": "^2.0.6",
     "vue-line-clamp": "^1.3.2",
     "vue-on-click-outside": "^1.0.3",
-    
     "vue-slide-up-down": "^2.0.0",
     "vuelidate": "^0.7.4",
     "vue-toasted": "^1.1.27"
