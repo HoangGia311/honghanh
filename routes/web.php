@@ -20,7 +20,7 @@ Auth::routes();
 
 Route::group(['prefix'=>'admin'], function() {
     Route::any('{all}', function () {
-        return view('admin/index');
+        return view('index');
     })->where(['all' => '.*']);
 	// Route::get('/', 'HomeController@index')->name('home');
 	// Route::resource('users', 'Admin\UserController', ['except' => [ 'show' ]]);

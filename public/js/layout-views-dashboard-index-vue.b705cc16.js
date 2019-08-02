@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["layout-views-dashboard-index-vue"],{9406:function(n,e,a){"use strict";a.r(e);var t=function(){var n=this,e=n.$createElement,a=n._self._c||e;return a("div",[n._v("\n    Dashboard\n")])},s=[],u=a("2877"),l={},o=Object(u["a"])(l,t,s,!1,null,null,null);e["default"]=o.exports}}]);
+//# sourceMappingURL=layout-views-dashboard-index-vue.b705cc16.js.map
