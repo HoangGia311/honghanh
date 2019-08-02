@@ -1,32 +1,55 @@
 <template>
-	<div  class="app-layout"  >
-		<div class="app-layout-sidebar">
-			<sidebar></sidebar>
+	<transition name="fade" mode="out-in">
+		<div v-if="loading" key="is-loading" class="app-loading">
+			<div class="spiner-border text-primary"></div>
 		</div>
-		<div class="app-layout-content">
-			<div class="app-layout-toolbar">
-				<toolbar></toolbar>
+		<div  class="app-layout"  v-else key="is-loading-success">
+			<div class="app-layout-sidebar">
+				<sidebar></sidebar>
 			</div>
-			<div class="app-layout-content-wrapper">
-				<transition name="fade" mode="out-in">
-					<router-view />
-				</transition>
-			</div>
-			<div class="app-layout-footer">
+			<div class="app-layout-content">
+				<div class="app-layout-toolbar">
+					<toolbar></toolbar>
+				</div>
+				<div class="app-layout-content-wrapper">
+					<transition name="fade" mode="out-in">
+						<router-view />
+					</transition>
+				</div>
+				<div class="app-layout-footer">
 
+				</div>
 			</div>
 		</div>
-	</div>
+	</transition>
 </template>
 <script>
 import sidebar from './partials/sidebar'
 import toolbar from './partials/toolbar'
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 export default {
 	name : 'AdminLayout',
 	components: {
 		sidebar , toolbar
 	},
+	computed:{
+		...mapGetters({
+			'loading' : 'getLoading'
+		})
+	},
+	methods:{
+		...mapActions({
+			getUser : 'GET_USER',
+		}),
+		...mapMutations({
+			setLoading : 'setLoading'
+		})
+	},
+	created(){
+		// this.getUser().then(res=>{
+		// })
+		this.setLoading(false)
+	}
 }
 </script>
 <style lang="scss" scoped>
@@ -36,7 +59,7 @@ export default {
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		background: $primary;
+		background: #fff;
 	}
 	.app-layout{
 		width: 100%;

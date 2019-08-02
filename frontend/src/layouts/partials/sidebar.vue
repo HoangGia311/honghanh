@@ -19,6 +19,19 @@
                         </li>
                     </ul>
                 </li>
+                <li :class="{ 'is-actived' : setActiveRouter('User')}">
+                    <router-link :to="{ name : 'User'}">
+                        <span class="menu-icon"><i class="material-icons">home</i></span>
+                        <span class="menu-text">User</span>
+                    </router-link>
+                    <ul class="mobile-menu">
+                        <li>
+                            <router-link :to="{ name : 'User'}">
+                                <span class="menu-text">User</span>
+                            </router-link>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>

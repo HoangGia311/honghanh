@@ -1,12 +1,7 @@
 <template>
 	<div id="app">
 		<transition name="fade" mode="out-in">
-			<div v-if="is_loading" key="is-loading" class="app-loading">
-				<div class="icon-loading large"></div>
-			</div>
-			<div v-else key="is-loading-success">
-				<vue-extend-layouts />
-			</div>
+			<vue-extend-layouts />
 		</transition>
 	</div>
 </template>
@@ -18,11 +13,6 @@
 		name: 'App',
 		components: {
 			VueExtendLayouts
-		},
-		computed: {
-			...mapGetters({
-				is_loading : 'getLoading'
-			})
 		},
 	}
 </script>

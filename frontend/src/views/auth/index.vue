@@ -2,26 +2,30 @@
     <div class="auth-form">
         <div class="card" >
             <div class="card-header">
-                LOGIN
+                ĐĂNG NHẬP
             </div>
             <div class="card-body">
                 <form class="auth-form-body"  @submit.stop.prevent="onSubmit" novalidate>
                     <div class="form-group">
                         <label for="form-email">Email</label>
-                        <input type="email" id="form-email" placeholder="Email" class="form-control" v-model.trim="form.email">
+                        <input type="email" id="form-email"  class="form-control" v-model.trim="form.email">
                         <transition name="fade" mode="out-in">
                             <div class="text-danger" v-if="$v.form.email.$invalid && formstate">
-                                <small v-if="!$v.form.email.required" class="form-text text-danger">Email is required </small>
-                                <small v-if="!$v.form.email.email" class="form-text text-danger">Email is invalid </small>
+                                <small v-if="!$v.form.email.required" class="form-text text-danger">
+                                    Email bắt buộc phải nhập
+                                </small>
+                                <small v-if="!$v.form.email.email" class="form-text text-danger">
+                                    Email chưa đúng định dạng
+                                </small>
                             </div>
                         </transition>
                     </div>
                     <div class="form-group">
-                        <label for="form-password">Password</label>
-                        <input type="password" id="form-password" placeholder="Your password" class="form-control" v-model.trim="form.password">
+                        <label for="form-password">Mật khẩu</label>
+                        <input type="password" id="form-password" class="form-control" v-model.trim="form.password">
                         <transition name="fade" mode="out-in">
                             <div class="text-danger" v-if="$v.form.password.$invalid && formstate">
-                                <small v-if="!$v.form.password.required" class="form-text text-danger">Password is required </small>
+                                <small v-if="!$v.form.password.required" class="form-text text-danger">Mật khẩu bắt buộc nhập</small>
                             </div>
                         </transition>
                     </div>
@@ -29,9 +33,9 @@
                         <div class="text-danger m-b-10" v-if="message">
                             {{ message }}
                         </div>
-                        <button class="btn btn-primary btn-block">
-                            <template v-if="is_loading"><span class="icon-loading"></span></template>
-                            <template v-else>Submit</template>
+                        <button class="btn btn-primary btn-submit btn-block">
+                            <template v-if="is_loading"><span class="spinner-border"></span></template>
+                            <template v-else>Đăng nhập</template>
                         </button>
                     </div>
                 </form>
@@ -41,7 +45,7 @@
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import { requiredIf , email  } from 'vuelidate/lib/validators'
+import { required , email  } from 'vuelidate/lib/validators'
 export default {
     name : 'Auth',
     data(){
@@ -55,9 +59,6 @@ export default {
             message : null 
         }
     },
-    computed:{
-
-    },
     methods:{
         ...mapActions({
             login : 'LOGIN' ,
@@ -68,9 +69,11 @@ export default {
             this.is_loading = true 
             this.message = null 
             this.login(this.form).then((res)=>{
-                let { status , data  , message } = res.data 
-                if( status ){
-                    this.getUser()
+                let { code , data  , message } = res.data 
+                if( code ){
+                    this.redirect({
+                        name : 'Dashboard'
+                    })
                 }else{
                     this.message = message 
                     this.is_loading = false
@@ -82,26 +85,16 @@ export default {
                 this.is_loading = false
             })
         },
-        change(params){
-            if( this.is_loading) return 
-            this.message = null 
-            this.formstate = false
-            this.form.is_guest = params
-        },
     },
     validations(){
         return {
             form : {
                 email: {
-                    required: requiredIf(function (nested) {
-                        return !nested.is_guest
-                    }),
+                    required,
                     email
                 },
                 password: {
-                    required: requiredIf(function (nested) {
-                        return !nested.is_guest
-                    })
+                    required
                 },
             }
         }
@@ -164,6 +157,10 @@ export default {
             padding: 15px;
             label{
                 font-weight: 500;
+            }
+            .btn-submit{
+                text-transform: uppercase;
+                font-weight: 600;
             }
         }
     }

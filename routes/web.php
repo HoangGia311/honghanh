@@ -18,12 +18,15 @@ Route::get('/', function () {
 Auth::routes();
 
 
-Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role']], function() {
-	Route::get('/', 'HomeController@index')->name('home');
-	Route::resource('users', 'Admin\UserController', ['except' => [ 'show' ]]);
-	Route::resource('roles', 'Admin\RoleController', ['except' => [ 'show' ]]);
-    Route::get('change-password', 'Admin\UserController@getChangePassword')->name('getChangePassword');
-    Route::post('change-password', 'Admin\UserController@postChangePassword')->name('postChangePassword');
+Route::group(['prefix'=>'admin'], function() {
+    Route::any('{all}', function () {
+        return view('admin/index');
+    })->where(['all' => '.*']);
+	// Route::get('/', 'HomeController@index')->name('home');
+	// Route::resource('users', 'Admin\UserController', ['except' => [ 'show' ]]);
+	// Route::resource('roles', 'Admin\RoleController', ['except' => [ 'show' ]]);
+    // Route::get('change-password', 'Admin\UserController@getChangePassword')->name('getChangePassword');
+    // Route::post('change-password', 'Admin\UserController@postChangePassword')->name('postChangePassword');
 });
 
 /*
@@ -32,3 +35,4 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role']], function() {
 Route::get('/test/user', 'Admin\TestController@user');
 Route::post('/test/user', 'Admin\TestController@user');
 Route::resource('/test', 'Admin\TestController');
+
