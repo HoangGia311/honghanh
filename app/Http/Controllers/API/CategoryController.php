@@ -23,8 +23,12 @@ class CategoryController extends Controller
                 $query->where("code","like","%$keyword%");
             });
         }
-        $categories = $query->paginate($limit);
-        return APIResponse::success(compact('categories'));
+        $categories = $query->paginate($limit)->toArray();
+        $data = [
+            "data" => $categories['data'],
+            "count" => ($categories['total'])
+        ];
+        return APIResponse::success($data);
     }
 
     public function create(){

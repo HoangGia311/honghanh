@@ -16,19 +16,16 @@ class UsersTableSeeder extends Seeder
         \App\User::create([
             'name' => 'Administrator',
             'email' => 'superadmin@gmail.com',
-            'role_id' => 1,
             'password' => bcrypt('123123123'),
         ]);
         \App\User::create([
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
-            'role_id' => 2,
             'password' => bcrypt('123123123'),
         ]);
         \App\User::create([
             'name' => 'User',
             'email' => 'user@gmail.com',
-            'role_id' => 3,
             'password' => bcrypt('123123123'),
         ]);
 
