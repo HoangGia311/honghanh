@@ -34,8 +34,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|email|max:191|unique:users,email',
             'password'=> 'required|max:191|min:6',
-            'name' => 'required|max:191',
-            'role_id' => 'required'
+            'name' => 'required|max:191'
         ]);
         if ($validator->fails()) {
             return APIResponse::fail([],$validator->errors()->first());
@@ -47,16 +46,14 @@ class UserController extends Controller
     }
 
     public function edit(User $user){
-        $role =  Role::all();
-        return APIResponse::success(compact('role','user'));
+        return APIResponse::success(compact('user'));
     }
 
     public function update(Request $request,User $user){
         $data = $request->only(['name','email','role_id']);
         $validator = Validator::make($data, [
             'email' => 'required|string|email|max:191|unique:users,email,'.$user->id,
-            'name' => 'required|max:191',
-            'role_id' => 'required'
+            'name' => 'required|max:191'
         ]);
         if ($validator->fails()) {
             return APIResponse::fail([],$validator->errors()->first());
