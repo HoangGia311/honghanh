@@ -21,12 +21,8 @@ class UserController extends Controller
             	->orwhere("email","like","%$keyword%");
             });
         }
-        $user = $query->paginate($limit)->toArray();
-        $data = [
-            "data" => $user['data'],
-            "count" => ($user['total'])
-        ];
-        return APIResponse::success($data);
+        $user = $query->paginate($limit);
+        return APIResponse::success($user);
     }
 
     public function create(){
