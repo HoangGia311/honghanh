@@ -33,4 +33,8 @@ class JwtController extends APIController
         return APIResponse::success(compact('token', 'user'));
     }
 
+    public function getUser(){
+        $user = Auth::user();
+        return APIResponse::success(compact('user'));
+    }
 }

@@ -15,7 +15,9 @@ use Illuminate\Http\Request;
 
 Route::post('register', 'API\JwtController@register')->middleware('log');
 Route::post('login', 'API\JwtController@login')->middleware('log');
-Route::group(['middleware' => ['jwt.auth', 'role:api', 'log']], function () {
+Route::group(['middleware' => ['jwt.auth', 'log']], function () {
+    Route::get('user-login','API\JWTController@getUser')->name('jwt.user');
     Route::resource('users', 'API\UserController', ['except' => [ 'show' ]]);
     Route::resource('roles', 'API\RoleController', ['except' => [ 'show' ]]);
+    Route::resource('categories', 'API\CategoryController', ['except' => [ 'show' ]]);
 });
