@@ -20,4 +20,5 @@ Route::group(['middleware' => ['jwt.auth', 'log']], function () {
     Route::resource('users', 'API\UserController', ['except' => [ 'show' ]]);
     Route::resource('roles', 'API\RoleController', ['except' => [ 'show' ]]);
     Route::resource('categories', 'API\CategoryController', ['except' => [ 'show' ]]);
+    Route::post('categories/{id}', 'API\CategoryController@update')->name('categories.update');
 });

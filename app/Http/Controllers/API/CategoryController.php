@@ -81,22 +81,24 @@ class CategoryController extends Controller
     }
 
     public function edit(Category $category){
-        $categories =  Category::all(["code","id"]);
+        $categories =  Category::where('id','!=',$category->id)->get(["code","id"]);
         return APIResponse::success(compact('categories','category'));
     }
 
-    public function update(Request $request,Category $category)
+    public function update(Request $request,$id)
     {
-        $validator = Validator::make($request->all(), [
-            'code' => 'required|max:191',
-            'vi_name' => 'required|max:191',
-            'en_name' => 'required|max:191',
-        ]);
-        if ($validator->fails()) {
-            return APIResponse::fail([], $validator->errors()->first());
-        }
-        $data = $request->all();
+        $category = Category::find($id);
         if ($category) {
+            $validator = Validator::make($request->all(), [
+                'code' => 'required|max:191',
+                'vi_name' => 'required|max:191',
+                'en_name' => 'required|max:191',
+            ]);
+            if ($validator->fails()) {
+                return APIResponse::fail([], $validator->errors()->first());
+            }
+            $data = $request->all();
+
             $category->code = $data['code'];
             $category->parent_id = isset($data['parent_id']) ? $data['parent_id'] : null;
             $path = '/' . $category->id;
@@ -158,7 +160,7 @@ class CategoryController extends Controller
             }
             return APIResponse::success(['category' => Category::find($category->id)]);
         }
-        return APIResponse::fail();
+        return APIResponse::fail([],'Category not found');
     }
 
     public function destroy(Category $category)
