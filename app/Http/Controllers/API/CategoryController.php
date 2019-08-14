@@ -35,8 +35,10 @@ class CategoryController extends Controller
     public function store(Request $request){
         $validator = Validator::make($request->all(), [
             'code' => 'required|max:191',
-            'vi_name' => 'required|max:191',
-            'en_name' => 'required|max:191',
+            'vi' => 'required|array',
+            'vi.name' => 'required|max:191',
+            'en' => 'required|array',
+            'en.name' => 'required|max:191',
         ]);
         if ($validator->fails()) {
             return APIResponse::fail([],$validator->errors()->first());
@@ -54,14 +56,14 @@ class CategoryController extends Controller
             $category->path = $path;
             $category->save();
             ViCategory::create([
-                "name" => $data['vi_name'],
+                "name" => $data['vi']['name'],
                 "category_id" => $category->id
             ]);
             EnCategory::create([
-                "name" => $data['en_name'],
+                "name" => $data['en']['name'],
                 "category_id" => $category->id
             ]);
-            $alias = !empty($data['alias']) ? $data['alias'] : to_slug($data['vi_name']);
+            $alias = !empty($data['alias']) ? $data['alias'] : to_slug($data['vi']['name']);
             Alias::create([
                 'alias' => $alias,
                 'object_id' => $category->id,
@@ -74,7 +76,8 @@ class CategoryController extends Controller
                 'meta_description' => isset($data['meta']) && isset($data['meta']['meta_description']) ? $data['meta']['meta_description'] : '',
                 'meta_keyword' => isset($data['meta']) && isset($data['meta']['meta_keyword']) ? $data['meta']['meta_keyword'] : '',
             ]);
-            return APIResponse::success(['category' => Category::find($category->id)]);
+            $response = Category::with(['en','vi'])->find($category->id);
+            return APIResponse::success($response);
         }
         return APIResponse::fail();
         
@@ -82,6 +85,7 @@ class CategoryController extends Controller
 
     public function edit(Category $category){
         $categories =  Category::where('id','!=',$category->id)->get(["code","id"]);
+        $category->load(['en','vi']);
         return APIResponse::success(compact('categories','category'));
     }
 
@@ -91,8 +95,10 @@ class CategoryController extends Controller
         if ($category) {
             $validator = Validator::make($request->all(), [
                 'code' => 'required|max:191',
-                'vi_name' => 'required|max:191',
-                'en_name' => 'required|max:191',
+                'vi'    => 'required|array',
+                'vi.name' => 'required|max:191',
+                'en'       => 'required|array',
+                'en.name' => 'required|max:191',
             ]);
             if ($validator->fails()) {
                 return APIResponse::fail([], $validator->errors()->first());
@@ -112,26 +118,26 @@ class CategoryController extends Controller
             $category->save();
             $vi_category = ViCategory::where('category_id', $category->id)->first();
             if ($vi_category) {
-                $vi_category->name = $data['vi_name'];
+                $vi_category->name = $data['vi']['name'];
                 $vi_category->save();
             } else {
                 ViCategory::create([
-                    "name" => $data['vi_name'],
+                    "name" => $data['vi']['name'],
                     "category_id" => $category->id
                 ]);
             }
             $en_category = EnCategory::where('category_id', $category->id)->first();
             if ($en_category) {
-                $en_category->name = $data['en_name'];
+                $en_category->name = $data['en']['name'];
                 $en_category->save();
             } else {
                 EnCategory::create([
-                    "name" => $data['en_name'],
+                    "name" => $data['en']['name'],
                     "category_id" => $category->id
                 ]);
             }
 
-            $alias = !empty($data['alias']) ? $data['alias'] : to_slug($data['vi_name']);
+            $alias = !empty($data['alias']) ? $data['alias'] : to_slug($data['vi']['name']);
             $update_alias = Alias::where('type', 'category')->where("object_id", $category->id)->first();
             if ($update_alias) {
                 $update_alias->alias = $alias;
@@ -158,7 +164,8 @@ class CategoryController extends Controller
                     'meta_keyword' => isset($data['meta']) && isset($data['meta']['meta_keyword']) ? $data['meta']['meta_keyword'] : '',
                 ]);
             }
-            return APIResponse::success(['category' => Category::find($category->id)]);
+            $response = Category::with(['en','vi'])->find($category->id);
+            return APIResponse::success($response);
         }
         return APIResponse::fail([],'Category not found');
     }
@@ -170,6 +177,7 @@ class CategoryController extends Controller
         Alias::where("type",'cateogry')->where("object_id",$category->id)->delete();
         Seo::where("type",'cateogry')->where("object_id",$category->id)->delete();
         $category->children()->delete();
+        $category->posts()->delete();
         $category->delete();
         return APIResponse::success([],'Delete category successfully!');
     }
