@@ -11,26 +11,14 @@ class Category extends Model
     protected $table = 'categories';
     protected $fillable = ['code','parent_id','primary_image','path'];
 
-    public $appends = ['vi_name','en_name','alias','meta'];
-
-    public function getViNameAttribute()
-    {
-
-        $vi = ViCategory::where('category_id',$this->id)->first();
-        if($vi){
-            return $vi->name;
-        }
-        return '';
+    public function en(){
+        return $this->hasOne('App\EnCategory','category_id','id');
+    }
+    public function vi(){
+        return $this->hasOne('App\ViCategory','category_id','id');
     }
 
-    public function getEnNameAttribute()
-    {
-        $en = EnCategory::where('category_id',$this->id)->first();
-        if($en){
-            return $en->name;
-        }
-        return '';
-    }
+    public $appends = ['alias','meta'];
 
     public function getAliasAttribute()
     {
@@ -60,5 +48,8 @@ class Category extends Model
 
     public function children(){
         return $this->hasMany('\App\Category','parent_id','id');
+    }
+    public function posts(){
+        return $this->hasMany('\App\Post','category_id','id');
     }
 }
