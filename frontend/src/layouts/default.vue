@@ -1,117 +1,138 @@
 <template>
-	<transition name="fade" mode="out-in">
-		<div v-if="loading" key="is-loading" class="app-loading">
-			<div class="spiner-border text-primary"></div>
-		</div>
-		<div  class="app-layout"  v-else key="is-loading-success">
-			<div class="app-layout-sidebar">
-				<sidebar></sidebar>
-			</div>
-			<div class="app-layout-content">
-				<div class="app-layout-toolbar">
-					<toolbar></toolbar>
-				</div>
-				<div class="app-layout-content-wrapper">
-					<transition name="fade" mode="out-in">
-						<router-view />
-					</transition>
-				</div>
-				<div class="app-layout-footer">
-
-				</div>
-			</div>
-		</div>
-	</transition>
+    <transition name="fade" mode="out-in">
+        <div class="app-frame app-is-loading" v-if="is_loading" key="is-loading">
+            <div class="spinner-grow text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <div class="app-frame" v-else key="is-loading-fail">
+            <template v-if="is_loading_error">
+                <section class="zero-state full-width">
+                    <article>
+                        <h1>Oops! Something went wrong.</h1>
+                    </article>
+                </section>
+            </template>
+            <template v-else>
+                <div class="app-sidebar" id="app-sidebar">
+                    <sidebar></sidebar>
+                </div>
+                <div class="app-toolbar" id="app-toolbar">
+                    <toolbar ></toolbar>
+                </div>
+                <div class="app-main" id="app-content">
+                    <div class="app-main-container">
+                        <transition name="fade" mode="out-in">
+                            <router-view />
+                        </transition>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </transition>
 </template>
+
+
 <script>
-import sidebar from './partials/sidebar'
-import toolbar from './partials/toolbar'
-import { mapActions, mapGetters, mapMutations } from 'vuex';
-export default {
-	name : 'AdminLayout',
-	components: {
-		sidebar , toolbar
-	},
-	computed:{
-		...mapGetters({
-			'loading' : 'getLoading'
-		})
-	},
-	methods:{
-		...mapActions({
-			getUser : 'GET_USER',
-		}),
-		...mapMutations({
-			setLoading : 'setLoading'
-		})
-	},
-	created(){
-		// this.getUser().then(res=>{
-		// })
-		this.setLoading(false)
-	}
-}
-</script>
-<style lang="scss" scoped>
-	.app-loading{
-		height: 100vh;
-		width: 100%;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		background: #fff;
-	}
-	.app-layout{
-		width: 100%;
-		height: 100vh;
-		position: relative;
-		background: #f2f2f2;
-		min-width: 1360px;
-		overflow: hidden;
-		&-sidebar{
-			position: fixed;
-			width: 300px;
-			z-index: 1001;
-			top: 0;
-			left: 0;
-			bottom: 0;
-			background: $primary;
-		}
-		&-content{
-			width: 100%;
-			padding-left: 300px;
-			position: relative;
-			height: 100%;
-			overflow: auto;
-			&-wrapper{
-				width: 1170px;
-				display: block;
-				margin-left: auto;
-				margin-right: auto;
-				padding: 30px 15px;
-			}
-		}
-		&-toolbar{
-			display: block;
-			width: 100%;
-			height: 60px;
-			position: sticky;
-			top: 0;
-			left: 0;
-			right: 0;
-			z-index: 1000;
-			background: #fff;
-			box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
-		}
-	}
-	 @media(max-width:1600px){
-        .app-layout{
-			&-sidebar{
-				width: 68px;
-			}
-			&-content{
-				padding-left: 68px;
-			}
-		}
+    import toolbar  from '@/layouts/partials/toolbar'
+	import sidebar   from '@/layouts/partials/sidebar.vue'
+    import { mapActions } from 'vuex';
+    export default {
+        name: 'defaultLayout',
+        components : {
+			toolbar, 
+			sidebar 
+        },
+        data(){
+            return {
+                is_loading : true,
+                is_loading_error : false
+            }
+        },
+        computed:{
+			
+        },
+        methods:{
+            ...mapActions({
+                'getUserInfo' : 'auth/getUserInfo'
+            })
+        },
+        created(){
+            this.getUserInfo().then((res)=>{
+
+            })
+            .catch(()=>{
+                this.is_loading_error = 500
+            })
+            .finally(()=>{
+                this.is_loading = false
+            })
+        },
+        mounted(){
+            
+        }
+
     }
+</script>
+
+<style lang="scss" scoped >
+    .app-frame{
+        min-height: 100vh;
+        width: 100%;
+        position: relative;
+        &.app-is-loading{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .spinner-grow{
+                width: 4rem;
+                height: 4rem;
+            }
+        }
+        .app-sidebar{
+            width: 240px;
+            position: fixed;
+            top: 56px;
+            left: 0;
+            bottom: 0;
+            border-right: 1px solid #dfe3e8;
+            z-index: 512;
+            background-color: #fff;
+        }
+        .app-toolbar{
+            width: 100%;
+            height: 56px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            border-bottom: 1px solid #dfe3e8;
+            z-index: 512;
+        }
+        .app-main{
+            position: relative;
+            padding: 56px 0 0 240px;
+            min-height: 100vh;
+            min-width: 1270px;
+            .app-main-container{
+                width: 1170px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+    }
+    
+    @media(max-width:1600px){
+        .app-frame{
+            .app-sidebar{
+                width: 66px;
+            }
+            .app-toolbar{
+                height: 56px;
+            }
+            .app-main{
+                padding: 56px 0 0 66px;
+            }
+        }
+    }
+
 </style>

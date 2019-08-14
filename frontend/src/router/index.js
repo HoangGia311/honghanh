@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { store } from '@/main.js'
 import auth from '@/middleware/auth'
-import Layout from '@/views/layout.vue'
 Vue.use(Router)
 const router = new Router({
 	mode: 'history',
@@ -14,55 +13,128 @@ const router = new Router({
     },
 	routes: [
 		{
-			path: '/admin',
+			path: '/',
 			meta : {
 				middleware : [auth],
 			},
-			component: Layout,
+			component: () => import( /* webpackChunkName: "dashboard" */ '@/views/dashboard/layout.vue'),
 			children : [
 				{
 					path : '',
+					name : 'Dashboard',
 					meta : {
-						middleware : [auth]
+						middleware : [auth],
 					},
-					component: Layout,
-					children : [
-						{
-							path : '',
-							name : 'Dashboard',
-							meta : {
-								middleware : [auth]
-							},
-							component: () => import('@/views/dashboard/index.vue'),
-						},
-					]
-				},
-				{
-					path : 'users',
-					meta : {
-						middleware : [auth]
-					},
-					component: Layout,
-					children : [
-						{
-							path : '',
-							name : 'User',
-							meta : {
-								middleware : [auth]
-							},
-							component: () => import('@/views/user/index.vue'),
-						},
-					]
-				},
-				{
-					path: 'login',
-					name: 'Login',
-					meta : {
-						layout: 'auth'
-					},
-					component: () => import('@/views/auth/index.vue'),
+					component: () => import( /* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue'),
 				},
 			]
+		},
+		{
+			path: '/user',
+			meta : {
+				middleware : [auth],
+			},
+			component: () => import( /* webpackChunkName: "discount" */ '@/views/user/layout.vue'),
+			children : [
+				{
+					path: '',
+					name : 'User',
+					meta : {
+						middleware : [auth],
+					},
+					component: () => import( /* webpackChunkName: "discount" */ '@/views/user/index.vue')
+				},
+				{
+					path: 'create',
+					name : 'CreateUser',
+					meta : {
+						middleware : [auth],
+					},
+					component: () => import( /* webpackChunkName: "discount" */ '@/views/user/create.vue')
+				},
+				{
+					path: ':id',
+					name : 'EditUser',
+					meta : {
+						middleware : [auth],
+					},
+					component: () => import( /* webpackChunkName: "discount" */ '@/views/user/edit.vue')
+				}
+			]
+		},
+		{
+			path: '/category',
+			meta : {
+				middleware : [auth],
+			},
+			component: () => import( /* webpackChunkName: "discount" */ '@/views/category/layout.vue'),
+			children : [
+				{
+					path: '',
+					name : 'Category',
+					meta : {
+						middleware : [auth],
+					},
+					component: () => import( /* webpackChunkName: "discount" */ '@/views/category/index.vue')
+				},
+				{
+					path: 'create',
+					name : 'CreateCategory',
+					meta : {
+						middleware : [auth],
+					},
+					component: () => import( /* webpackChunkName: "discount" */ '@/views/category/create.vue')
+				},
+				{
+					path: ':id',
+					name : 'EditCategory',
+					meta : {
+						middleware : [auth],
+					},
+					component: () => import( /* webpackChunkName: "discount" */ '@/views/category/edit.vue')
+				}
+			]
+		},
+		{
+			path: '/post',
+			meta : {
+				middleware : [auth],
+			},
+			component: () => import( /* webpackChunkName: "discount" */ '@/views/post/layout.vue'),
+			children : [
+				{
+					path: '',
+					name : 'Post',
+					meta : {
+						middleware : [auth],
+					},
+					component: () => import( /* webpackChunkName: "discount" */ '@/views/post/index.vue')
+				},
+				{
+					path: 'create',
+					name : 'CreatePost',
+					meta : {
+						middleware : [auth],
+					},
+					component: () => import( /* webpackChunkName: "discount" */ '@/views/post/create.vue')
+				},
+				{
+					path: ':id',
+					name : 'EditPost',
+					meta : {
+						middleware : [auth],
+					},
+					component: () => import( /* webpackChunkName: "discount" */ '@/views/post/edit.vue')
+				}
+			]
+		},
+		{
+			path: '/login',
+			name: 'Login',
+			meta: {
+				layout: 'auth',
+			},
+			component: () => import( /* webpackChunkName: "auth" */ '@/views/auth/index.vue')
 		},
 		{
 			path: '*',
@@ -70,13 +142,14 @@ const router = new Router({
 			meta: {
 				layout: 'error'
 			},
-			component: () => import('@/views/error/error-404.vue')
+			component: () => import( /* webpackChunkName: "error" */ '@/views/errors/_404.vue')
 		},
 	]
 })
 
 
 router.beforeEach( async (to, from, next) => {
+	/* run middleware in current route */
 	if (to.meta.middleware) {
 		const middleware = to.meta.middleware
         const context = { next , from , to , router, store };

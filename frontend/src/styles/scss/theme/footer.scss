@@ -1,0 +1,31 @@
+/* Footer
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+footer {
+  margin: 4.0rem 0;
+  text-align: center;
+  width: 100%;
+
+  .help {
+    align-items: center;
+    display: inline-flex;
+    border: 0.1rem solid #dfe3e8;
+    border-radius: 999rem;
+    padding: 1.6rem 2rem 1.6rem 1.6rem;
+
+    span {
+      min-width: 4rem;
+      min-height: 4rem;
+      border-radius: 50%;
+      background-color: #fff;
+      margin-right: 2.4rem;
+      background-image: icon(question, 'rgb(71,193,191)');
+      background-size: 24px 24px; /* IE requires pixels. Using cover/contain/rem values cause blurry edges */
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    p {
+      margin: 0;
+      color: #637381;
+    }
+  }
+}

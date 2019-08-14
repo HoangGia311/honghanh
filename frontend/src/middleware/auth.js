@@ -1,5 +1,5 @@
 export default ({ next, router , store })=> {
-	if ( !store.state.token ) {
+	if ( !store.getters['auth/getToken'] ) {
 		next({ name: 'Login' })
 		return false
 	}

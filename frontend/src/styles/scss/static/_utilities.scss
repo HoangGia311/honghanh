@@ -100,6 +100,28 @@
         white-space: nowrap;
     }
 }
+.flex{
+    &-text{
+        &-left{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+        }
+        &-center{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        &-right{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+    }
+}
 .border{
     &-top{
         border-top: 1px solid $border-color !important;

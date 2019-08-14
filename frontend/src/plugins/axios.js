@@ -3,8 +3,7 @@ import cookie from 'js-cookie'
 import store from '@/store'
 import router from '@/router'
 import { default as instance } from 'axios'
-const token_name = store.state.token_name 
-
+let token_name = process.env.VUE_APP_TOKEN_NAME ? process.env.VUE_APP_TOKEN_NAME : 'token'
 let AxiosConfig = {
 	baseURL: process.env.VUE_APP_ROOT_API || "",
 	timeout: 60 * 1000,
@@ -18,13 +17,19 @@ let axios = instance.create(AxiosConfig);
 axios.interceptors.request.use(function (config) {
 	let token = cookie.get(token_name)
 	if( token ){
-		config.headers['Authorization'] = token
+		config.headers['Authorization'] = 'Bearer ' + token
 	} 
     return config;
 });
 
 axios.interceptors.response.use(function (response) {
-	
+	let { status } = response 
+	if( status === 400 || status === 401 ){
+		store.dispatch('auth/logout')
+		let { message  = 'Your session is expired'} = response.data
+		app.$toasted.error(message)
+	}
+    return response;
     return response;
 }, function (error ) {
     return Promise.reject(error);
