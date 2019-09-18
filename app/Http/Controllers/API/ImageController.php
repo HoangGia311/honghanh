@@ -13,11 +13,15 @@ use App\Helpers\UploadHelper;
 class ImageController extends Controller
 {
     public function index(Request $request){
-        $keyword = $request->input('keyword','');
+        $keyword = trim($request->input('keyword',''));
+        $gallery_id = $request->input('gallery_id');
         $limit = (int)$request->input('limit',config("constants.ITEM_PER_PAGE"));
         $query = Image::query();
         if($keyword){
             $query->where("name","like","%$keyword%");
+        }
+        if($gallery_id){
+            $query->where('gallery_id',$gallery_id);
         }
         $images = $query->paginate($limit);
         return APIResponse::success($images);

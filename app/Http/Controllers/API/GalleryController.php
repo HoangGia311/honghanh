@@ -12,12 +12,11 @@ class GalleryController extends Controller
 {
     public function index(Request $request){
     	$keyword = $request->input('keyword','');
-        $limit = (int)$request->input('limit',config("constants.ITEM_PER_PAGE"));
         $query = Gallery::query();
         if($keyword){
             $query->where("name","like","%$keyword%");
         }
-        $galleries    = $query->paginate($limit);
+        $galleries = $query->get();
         return APIResponse::success($galleries);
     }
     public function create(){
