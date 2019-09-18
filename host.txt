@@ -1,0 +1,4 @@
+Hosting cho www.kabenat.com
+Control panel	http://112.213.89.143:2083 hay http://kabenat.com:2083
+Username	kabenatc
+Password	NTfw17BrgW85
