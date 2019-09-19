@@ -29,4 +29,10 @@ Route::group(['middleware' => ['jwt.auth', 'log']], function () {
     Route::post('image/{image}', 'API\ImageController@update')->name('image.update');
     Route::resource('product', 'API\ProductController', ['except' => [ 'show','update' ]]);
     Route::post('product/{product}', 'API\ProductController@update')->name('product.update');
+    Route::resource('cooking', 'API\CookingController', ['except' => [ 'show','update' ]]);
+    Route::post('cooking/{cooking}', 'API\CookingController@update')->name('cooking.update');
+    Route::resource('page', 'API\PageController', ['only' => [ 'index' ]]);
+    Route::post('page/addComponent', 'API\PageController@addComponent')->name('page.addComponent');
+    Route::delete('page/deleteComponent/{id}', 'API\PageController@deleteComponent')->name('page.deleteComponent');
+    Route::get('page/listComponent', 'API\PageController@listComponent')->name('page.listComponent');
 });

@@ -11,12 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
-
 
 Route::group(['prefix'=>'admin'], function() {
     Route::any('{all}', function () {
@@ -32,6 +27,9 @@ Route::group(['prefix'=>'admin'], function() {
 /*
  * Route for testing
  */
+
+Route::any('/{alias?}', 'PrimaryController@index');
+
 Route::get('/test/user', 'Admin\TestController@user');
 Route::post('/test/user', 'Admin\TestController@user');
 Route::resource('/test', 'Admin\TestController');
