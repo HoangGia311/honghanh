@@ -23,6 +23,7 @@
                         <div class="card-section">
                             <h5>Section Heading</h5>
                             <p>content</p>
+							<button @click="show">show</button>
                         </div>
                     </div>
                 </div>
@@ -30,3 +31,15 @@
         </div>
     </div>
 </template>
+<script>
+export default {
+	name : 'asdad',
+	methods:{
+		show(){
+			this.$gallery.show(function(image){
+				console.log(image)
+			})
+		}
+	}
+}
+</script>

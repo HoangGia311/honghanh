@@ -1,8 +1,7 @@
 export default {
     data(){
         return {
-            VUE_APP_IS_FALSE : parseInt(process.env.VUE_APP_IS_FALSE),
-            VUE_APP_IS_TRUE : parseInt(process.env.VUE_APP_IS_TRUE)
+			
         }
     },
     methods:{

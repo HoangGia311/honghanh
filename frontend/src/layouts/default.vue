@@ -28,6 +28,7 @@
                     </div>
                 </div>
             </template>
+			<vue-gallery />
         </div>
     </transition>
 </template>
@@ -54,7 +55,8 @@
         },
         methods:{
             ...mapActions({
-                'getUserInfo' : 'auth/getUserInfo'
+				'getUserInfo' : 'auth/getUserInfo',
+				'getGallery' : 'gallery/get',
             })
         },
         created(){
@@ -66,7 +68,8 @@
             })
             .finally(()=>{
                 this.is_loading = false
-            })
+			})
+			this.getGallery()
         },
         mounted(){
             

@@ -129,6 +129,23 @@ const router = new Router({
 			]
 		},
 		{
+			path: '/gallery',
+			meta : {
+				middleware : [auth],
+			},
+			component: () => import( /* webpackChunkName: "discount" */ '@/views/gallery/layout.vue'),
+			children : [
+				{
+					path: '',
+					name : 'Gallery',
+					meta : {
+						middleware : [auth],
+					},
+					component: () => import( /* webpackChunkName: "discount" */ '@/views/gallery/index.vue')
+				},
+			]
+		},
+		{
 			path: '/login',
 			name: 'Login',
 			meta: {

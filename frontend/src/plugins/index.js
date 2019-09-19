@@ -4,13 +4,15 @@ import Toasted from 'vue-toasted'
 import lineClamp from 'vue-line-clamp'
 import pagination from '@/components/pagination'
 import Modal from './modal'
-
-
+import Gallery from '@/components/gallery'
+Vue.use(Gallery)
 import './helper'
 import './axios'
 import './filter'
 import 'bootstrap'
+import '@/assets/fontawesome/css/all.css'
 import '@/styles/style.scss'
+
 Vue.use(Modal)
 Vue.use(Vuelidate)
 Vue.use(Toasted, {
