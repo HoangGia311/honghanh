@@ -51,19 +51,109 @@
     }
 }
 
-
-.page-title{
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 0;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-}
 a:not([href]):not([tabindex]) {
     color: $primary;
     cursor: pointer;
 }
 a:disabled {
     opacity: 0.5;
+}
+
+.spinner-border.icon-loading{
+    width: 34px;
+    height: 34px;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    animation: spinner-border .5s linear infinite;
+}
+.modal{
+    display: block;
+    overflow: hidden auto;
+    padding: 50px 0;
+    &-dialog{
+        z-index: 1041;
+        width: 800px;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    &-header{
+        .modal-title{
+            font-style: normal;
+            font-weight: bold;
+            font-size: 20px;
+            line-height: 27px;
+            display: flex;
+            align-items: center;
+
+            color: #2E2E2F;
+        }
+
+        .close{
+            width: 40px;
+        }
+    }
+    &-body{
+        padding:  15px;
+        .row-table{
+            margin-left: -15px;
+            margin-right: -15px;
+        }
+    }
+    &-footer{
+        button{
+            
+        }
+    }
+    &-backdrop{
+        opacity: 0.5;
+    }
+}
+
+.vue-tags-input {
+	background: transparent;
+	max-width: 100% !important;
+	input[type="email"], input[type="number"], input[type="search"], input[type="text"], input[type="tel"], input[type="url"], input[type="password"], textarea, select{
+		min-height: 0;
+	}
+}
+
+.vue-tags-input .ti-new-tag-input {
+	background: transparent;
+	&:focus{
+		border: none;
+		box-shadow: none;
+	}
+}
+
+.vue-tags-input .ti-input {
+	padding: 4px 10px;
+	transition: border-bottom 200ms ease;
+}
+
+/* we cange the border color if the user focuses the input */
+.vue-tags-input.ti-focus .ti-input {
+	border: 1px solid #c4cdd5;
+}
+.vue-tags-input.ti-focus .ti-input{
+	box-shadow: none;
+}
+.vue-tags-input .ti-input .ti-tag {
+    position: relative;
+    background-color: $primary;
+    color: #fff;
+	border: 1px solid $primary;
+	padding: 4px 8px;
+	height: 32px;
+	font-size: 14px;
+}
+.ti-tag .ti-content{
+	right: 10px;
+}
+
+button{
+	box-shadow: none;
+}
+
+.ck-editor__editable {
+    min-height: 300px;
 }

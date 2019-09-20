@@ -1,24 +1,32 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import cookie from 'js-cookie'
-import actions from './actions';
-import getters from './getters';
-import mutations from './mutations';
-import User from './user'
+import modules from "./modules";
 Vue.use(Vuex)
-let token_name = process.env.VUE_APP_TOKEN_NAME ? process.env.VUE_APP_TOKEN_NAME : 'token'
-let token = cookie.get(token_name)  
+
 const state = {
-    token_name: token_name ,
-    token : token ,
-    is_loading : true,
+    is_loading : false,
 }
+
+
+const getters = {
+    getLoading(state){
+        return state.is_loading
+    },
+};
+
+const actions = {
+    
+};
+
+const mutations = {
+    setLoading(state , payload ){
+        state.is_loading = payload
+    },
+};
 export default new Vuex.Store({
     state,
     actions,
     getters,
     mutations,
-    modules: {
-        User
-    }
+    modules
 });

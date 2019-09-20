@@ -1,48 +1,77 @@
 <template>
-    <div>
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col col-10">
-                        <div class="input-group input-group-search">
-                            <input type="text" class="form-control" v-model="pagination.keyword" @keyup="onKeyword">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" >
-                                    <i class="material-icons">search</i>
-                                </button>
+    <div class="page">
+        <div class="page-header">
+            <div class="page-title">
+                <h1>Users</h1>
+            </div>
+            <div class="page-actions">
+                <router-link class="button" :to="{ name : 'CreateUser'}">
+                    Add user
+                </router-link>
+            </div>
+        </div>
+        <div class="page-body">
+            <div class="card">
+                <div class="card-section">
+                    <div class="row">
+                        <div class="col col-12 m-b-30">
+                            <div class="input-group">
+                                <button class="secondary">Filters</button>
+                                <input type="search" v-model="pagination.keyword" @keyup="onKeyword" />
                             </div>
                         </div>
                     </div>
-                    <div class="col col-2">
-                        <div class="text-right">
-                            <button class="btn btn-primary">
-                                + Thêm người dùng
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="row m-t-15">
-                    <div class="col col-12">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col" class="td-index">#</th>
-                                    <th scope="col" class="td-name">Name</th>
-                                    <th scope="col" class="td-role">Role</th>
-                                    <th scope="col" class="td-status">Status</th>
-                                    <th scope="col" class="td-action"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="td-index">#</td>
-                                    <td class="td-name">Name</td>
-                                    <td class="td-role">Role</td>
-                                    <td class="td-status">Status</td>
-                                    <td class="td-action"></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="row">
+                        <transition name="fade" mode="out-in">    
+                            <div class="col col-12" v-if="is_loading" key="is-loading">
+                                <div class="text-center p-t-80 p-b-80">
+                                    <div class="spinner-border icon-loading text-primary"></div>
+                                </div>
+                            </div>
+                            <div class="col col-12" v-else key="is-loading-success">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th class="td-index">#</th>
+                                            <th class="td-name">Name</th>
+                                            <th class="td-email">Email</th>
+                                            <th class="td-actions">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <template v-if="pagination.data.length">
+                                            <tr v-for="(item , index) in pagination.data" :key="`index_${index}`">
+                                                <td class="td-index">
+                                                    {{ pagination.limit * ( pagination.current_page - 1) + index + 1 }}
+                                                </td>
+                                                <td class="td-name">
+                                                    {{ item.name }}
+                                                </td>
+                                                <td class="td-email">
+                                                    {{ item.email }}
+                                                </td>
+                                                <td class="td-actions">
+                                                    <router-link class="button secondary icon-edit" :to="{ name : 'EditUser' , params : { id : item.id }}"></router-link>
+                                                    <button class="secondary icon-trash" @click.stop.prevent="remove(item.id)"></button>
+                                                </td>
+                                            </tr>
+                                        </template>
+                                        <template v-else>
+                                            <tr>
+                                                <td colspan="20" class="text-center  p-t-30 p-b-30">
+                                                    <h3>
+                                                        Could not find any users
+                                                    </h3>
+                                                </td>
+                                            </tr>
+                                        </template>
+                                    </tbody>
+                                </table>
+                                <div class="text-center m-t-20">
+                                    <pagination v-model="pagination.current_page" :total="pagination.last_page" ></pagination>
+                                </div>
+                            </div>
+                        </transition>
                     </div>
                 </div>
             </div>
@@ -52,50 +81,42 @@
 <script>
 import { mapActions  } from 'vuex'
 export default {
-    name : 'ListUsers',
-    data(){
-        return {
-
-        }
-    },
+    name : 'User',
     data(){
         return {
             pagination :{
-                total_page : 0,
+                last_page : 0,
                 current_page : 1,
                 total : 0,
                 limit : 10,
                 data : [],
                 keyword : '',
-                role: ''
             },
             timeout: null,
             is_error : null,
             is_loading : false,
         }
     },
-    methods:{
+    methods : {
         ...mapActions({
-            fetchData : 'User/GET',
+            fetchData : 'user/list',
+            delete : 'user/delete'
         }),
         getList(route){
             this.is_loading = true
-            var current_page = route.query.page ? route.query.page : 1 
+            var page = route.query.page ? route.query.page : 1 
             var keyword = route.query.keyword ? route.query.keyword :  ''
             var limit = this.pagination.limit 
             this.fetchData({ 
-                current_page , 
+                page , 
                 keyword,
                 limit,
             })
             .then((res)=>{
-                let { status , data , pagination } = res.data
-                if( status ){
+                let { code = 0 , data  } = res.data
+                if( code ){
                     this.is_error = null
-                    this.pagination.data = data 
-                    this.pagination.current_page = pagination.current_page
-                    this.pagination.total_page = pagination.total_page
-                    this.pagination.total = pagination.total 
+                    this.pagination = Object.assign(this.pagination , data )
                 }else{
                     this.is_error = true
                 }
@@ -106,22 +127,11 @@ export default {
                 this.is_loading = false
             })
         },
-        onChangeKeyword(){
-            var query = {
-                
-            }
-            var keyword = this.pagination.keyword.trim()
-            if( keyword ){
-                query['keyword'] = keyword
-            }
-            this.pushRouterLinkDefault({
-                query : query
-            })
+        reload(){
+            this.getList(this.$route)
         },
-        onChangeRole(){
-            var query = {
-                
-            }
+        onChangeKeyword(){
+            var query = {}
             var keyword = this.pagination.keyword.trim()
             if( keyword ){
                 query['keyword'] = keyword
@@ -144,6 +154,35 @@ export default {
                 }, 1000);
             }
         },
+        remove(id){
+            this.$confirm.show({
+                title : 'Confirm',
+                content : 'Do do want to delete this user ?',
+                btnSave : 'Delete',
+                btnSaveClass : 'warning',
+                btnClose: 'Cancel',
+                onSave : () => {
+                    return new Promise((resolve , reject) =>{
+                        this.delete(id).then((res)=>{
+                            let { code  , message = ''} = res.data 
+                            if( code ){
+                                this.reload()
+                                this.$toasted.success('Delete successfully !')
+                            }else{
+                                this.$toasted.error(message)
+                            }
+                        })
+                        .catch((err)=>{
+                            console.log(err)
+                            this.$toasted.error('Error !')
+                        })
+                        .finally((res)=>{
+                            resolve()
+                        })
+                    })
+                }
+            })
+        },
     },
     beforeRouteUpdate (to, from, next) {
         this.getList(to)
@@ -155,3 +194,18 @@ export default {
     }
 }
 </script>
+<style lang="scss" scoped>
+    .td{
+        &-index{
+            width: 50px;
+            text-align: center;
+        }
+        &-name{
+
+        }
+        &-actions{
+            width: 150px;
+            text-align: center;
+        }
+    }
+</style>
