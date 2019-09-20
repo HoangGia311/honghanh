@@ -96,6 +96,39 @@ const router = new Router({
 			]
 		},
 		{
+			path: '/product',
+			meta : {
+				middleware : [auth],
+			},
+			component: () => import( /* webpackChunkName: "discount" */ '@/views/product/layout.vue'),
+			children : [
+				{
+					path: '',
+					name : 'Product',
+					meta : {
+						middleware : [auth],
+					},
+					component: () => import( /* webpackChunkName: "discount" */ '@/views/product/index.vue')
+				},
+				{
+					path: 'create',
+					name : 'CreateProduct',
+					meta : {
+						middleware : [auth],
+					},
+					component: () => import( /* webpackChunkName: "discount" */ '@/views/product/create.vue')
+				},
+				{
+					path: ':id',
+					name : 'EditProduct',
+					meta : {
+						middleware : [auth],
+					},
+					component: () => import( /* webpackChunkName: "discount" */ '@/views/product/edit.vue')
+				}
+			]
+		},
+		{
 			path: '/post',
 			meta : {
 				middleware : [auth],

@@ -1,5 +1,5 @@
 <template>
-    <form class="page"  @submit.stop.prevent="onSubmit" novalidate>
+    <form class="page page-center"  @submit.stop.prevent="onSubmit" novalidate>
         <div class="page-header">
             <div class="page-title">
                 <h1>Create User</h1>
@@ -12,12 +12,7 @@
         </div>
         <div class="page-body">
             <div class="row">
-                <div class="col col-4">
-                    <div class="card-aside">
-                        <h2>User's Infomation</h2>
-                    </div>
-                </div>
-                <div class="col col-8">
+                <div class="col col-12">
                     <div class="card">
                         <div class="card-section">
                             <h5>Infomation</h5>
@@ -48,12 +43,7 @@
             </div>
             <hr class="m-b-30">
             <div class="row">
-                <div class="col col-4">
-                    <div class="card-aside">
-                        <h2>User's Sercurity</h2>
-                    </div>
-                </div>
-                <div class="col col-8">
+                <div class="col col-12">
                     <div class="card">
                         <div class="card-section">
                             <h5>Password </h5>

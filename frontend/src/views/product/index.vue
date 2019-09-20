@@ -2,11 +2,11 @@
     <div class="page">
         <div class="page-header">
             <div class="page-title">
-                <h1>Categories</h1>
+                <h1>Products</h1>
             </div>
             <div class="page-actions">
-                <router-link class="button" :to="{ name : 'CreateCategory'}">
-                    Add category
+                <router-link class="button" :to="{ name : 'CreateProduct'}">
+                    Add product
                 </router-link>
             </div>
         </div>
@@ -33,6 +33,7 @@
                                     <thead>
                                         <tr>
                                             <th class="td-index">#</th>
+											<th class="td-image">Image</th>
                                             <th class="td-name">Name</th>
                                             <th class="td-email">Alias</th>
                                             <th class="td-actions">Actions</th>
@@ -44,6 +45,16 @@
                                                 <td class="td-index">
                                                     {{ pagination.limit * ( pagination.current_page - 1) + index + 1 }}
                                                 </td>
+												<td class="td-image">
+													<div class="item-image">
+														<template v-if="item.image">
+															<img :src="item.image.path" alt="">
+														</template>
+														<template v-else>
+															No image
+														</template>
+													</div>
+                                                </td>
                                                 <td class="td-name">
                                                     {{ item.vi ? item.vi.name : '' }}
                                                 </td>
@@ -51,7 +62,7 @@
                                                     {{ item.alias }}
                                                 </td>
                                                 <td class="td-actions">
-                                                    <router-link class="button secondary icon-edit" :to="{ name : 'EditCategory' , params : { id : item.id}}"></router-link>
+                                                    <router-link class="button secondary icon-edit" :to="{ name : 'EditProduct' , params : { id : item.id}}"></router-link>
                                                     <button class="secondary icon-trash" @click.stop.prevent="remove(item.id)"></button>
                                                 </td>
                                             </tr>
@@ -99,8 +110,8 @@ export default {
     },
     methods : {
         ...mapActions({
-            fetchData : 'category/list',
-            delete : 'category/delete'
+            fetchData : 'product/list',
+            delete : 'product/delete'
         }),
         getList(route){
             this.is_loading = true
@@ -157,7 +168,7 @@ export default {
         remove(id){
             this.$confirm.show({
                 title : 'Confirm',
-                content : 'Do do want to delete this user ?',
+                content : 'Do do want to delete this product ?',
                 btnSave : 'Delete',
                 btnSaveClass : 'warning',
                 btnClose: 'Cancel',
@@ -202,7 +213,26 @@ export default {
         }
         &-name{
 
-        }
+		}
+		&-image{
+			max-width: 100px;
+			width: 100px;
+			min-width: 100px;
+			.item-image{
+				width: 40px;
+				height: 40px;
+				border-radius: 4px;
+				border: 1px soldi #ddd;
+				overflow: hidden;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				img{
+					max-width: 100%;
+					max-height: 100%;
+				}
+			}
+		}
         &-actions{
             width: 150px;
             text-align: center;

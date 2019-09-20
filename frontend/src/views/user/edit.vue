@@ -5,7 +5,7 @@
                 <span class="spinner-border text-primary icon-loading"></span>
             </div>
         </div>
-        <form v-else class="page" key="loading-ready"  @submit.stop.prevent="onSubmit" novalidate>
+        <form v-else class="page page-center" key="loading-ready"  @submit.stop.prevent="onSubmit" novalidate>
             <template v-if="is_loading_error">
                 <div class="page-body text-center">
                     <template v-if="is_loading_error == 404">
@@ -33,12 +33,7 @@
                 </div>
                 <div class="page-body">
                     <div class="row">
-                        <div class="col col-4">
-                            <div class="card-aside">
-                                <h2>User's Infomation</h2>
-                            </div>
-                        </div>
-                        <div class="col col-8">
+                        <div class="col col-12">
                             <div class="card">
                                 <div class="card-section">
                                     <h5>Infomation</h5>

@@ -12,7 +12,9 @@ import './filter'
 import 'bootstrap'
 import '@/assets/fontawesome/css/all.css'
 import '@/styles/style.scss'
+import CKEditor from '@ckeditor/ckeditor5-vue';
 
+Vue.use( CKEditor );
 Vue.use(Modal)
 Vue.use(Vuelidate)
 Vue.use(Toasted, {
