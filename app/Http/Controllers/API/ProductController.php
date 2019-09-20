@@ -19,7 +19,7 @@ class ProductController extends Controller
         $limit = (int)$request->input('limit',config("constants.ITEM_PER_PAGE"));
         $query = Product::query();
 
-        $products = $query->with(["vi","en"])->paginate($limit);
+        $products = $query->with(["vi","en",'image'])->paginate($limit);
         return APIResponse::success($products);
     }
     public function store(Request $request){
@@ -64,7 +64,7 @@ class ProductController extends Controller
     }
 
     public function edit(Product $product){
-        $product->load(['en','vi']);
+        $product->load(['en','vi','image']);
         return APIResponse::success(compact('product'));
     }
 

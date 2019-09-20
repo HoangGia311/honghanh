@@ -23,6 +23,7 @@ class CategoryController extends Controller
         //         $query->where("code","like","%$keyword%");
         //     });
         // }
+        $query->with(['vi','en']);
         $categories = $query->paginate($limit);	
         return APIResponse::success($categories);
     }
@@ -84,7 +85,7 @@ class CategoryController extends Controller
 
     public function edit(Category $category){
         $categories =  Category::where('id','!=',$category->id)->get();
-        $category->load(['en','vi']);
+        $category->load(['en','vi','image']);
         return APIResponse::success(compact('categories','category'));
     }
 
@@ -112,6 +113,7 @@ class CategoryController extends Controller
                 }
             }
             $category->path = $path;
+            $category->primary_image = $data['primary_image'];
             $category->save();
             $vi_category = ViCategory::where('category_id', $category->id)->first();
             if ($vi_category) {

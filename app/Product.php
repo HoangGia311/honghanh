@@ -17,6 +17,9 @@ class Product extends Model
     public function vi(){
         return $this->hasOne('App\ViProduct','product_id','id');
     }
+    public function image(){
+        return $this->hasOne('App\Image','id','primary_image');
+    }
 
     protected $appends=['alias','meta'];
 

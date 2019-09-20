@@ -21,6 +21,9 @@ class Post extends Model
         return $this->hasOne('App\Category','id','category_id');
     }
 
+    public function image(){
+        return $this->hasOne('App\Category','id','primary_image');
+    }
     protected $appends=['alias','meta'];
 
     public function getAliasAttribute()

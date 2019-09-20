@@ -19,12 +19,12 @@ class PostController extends Controller
         $keyword = $request->input('keyword','');
         $limit = (int)$request->input('limit',config("constants.ITEM_PER_PAGE"));
         $query = Post::query();
-
+        $query->with(['vi','en']);
         $posts = $query->paginate($limit);
         return APIResponse::success($posts);
     }
     public function create(){
-        $categories = Category::all(['id','code']);
+        $categories = Category::all();
         return APIResponse::success(compact('categories'));
     }
     public function store(Request $request){
@@ -69,8 +69,8 @@ class PostController extends Controller
     }
 
     public function edit(Post $post){
-        $categories = Category::all(['id','code']);
-        $post->load(['en','vi']);
+        $categories = Category::all();
+        $post->load(['en','vi','image']);
         return APIResponse::success(compact('categories','post'));
     }
 

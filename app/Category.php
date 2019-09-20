@@ -52,4 +52,7 @@ class Category extends Model
     public function posts(){
         return $this->hasMany('\App\Post','category_id','id');
     }
+    public function image(){
+        return $this->hasOne('\App\Image','id','primary_image'); 
+    }
 }
