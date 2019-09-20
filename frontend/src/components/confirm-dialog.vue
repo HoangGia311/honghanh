@@ -6,22 +6,17 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">{{ options.title }}</h5>
-                            <button type="button" class="close" @click="close()">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                            <a  class="close" @click="close()">
+                                <i class="icon-close"></i>
+                            </a>
                         </div>
                         <div class="modal-body">
                             {{ options.content }}
                         </div>
                         <div class="modal-footer">
                             <button type="button" v-if="options.btnCloseShow" :class="options.btnCloseClass" @click="close()">{{ options.btnClose}}</button>
-                            <button type="button" v-if="options.btnSaveShow" :class="options.btnSaveClass" @click="onSave">
-                                <template v-if="options.isLoading">
-                                    <div class="icon-loading"></div>
-                                </template>
-                                <template v-else>
-                                    {{options.btnSave}}
-                                </template>
+                            <button type="button" v-if="options.btnSaveShow" :class="[{ 'is-loading' : options.isLoading } , options.btnSaveClass]" @click="onSave">
+                                {{options.btnSave}}
                             </button>
                         </div>
                     </div>
@@ -32,7 +27,7 @@
     </div>
 </template>
 <script>
-
+import Modal from '@/plugins/modal'
 export default {
     data(){
         return {
@@ -41,10 +36,10 @@ export default {
                 content : '',
                 btnClose : 'Close',
                 btnCloseShow : true,
-                btnCloseClass : 'btn btn-secondary',
+                btnCloseClass : 'secondary',
                 btnSave : 'Done',
                 btnSaveShow : true,
-                btnSaveClass : 'btn btn-primary',
+                btnSaveClass : '',
                 onSave : null,
                 onClose : null,
                 isLoading: false,
@@ -86,16 +81,21 @@ export default {
                 content : '',
                 btnClose : 'Close',
                 btnCloseShow : true,
-                btnCloseClass : 'btn btn-secondary',
+                btnCloseClass : 'secondary',
                 btnSave : 'Done',
                 btnSaveShow : true,
-                btnSaveClass : 'btn btn-primary',
+                btnSaveClass : '',
                 onSave : null,
                 onClose : null,
                 isLoading: false,
             }
         },
     },
+    beforeMount() {
+        Modal.EventBus.$on('show', (options) => {
+            this.show(options)
+        })
+    }
 };
 </script>
 <style lang="scss" scoped>
@@ -112,12 +112,17 @@ export default {
                 width: 450px;
                 z-index: 1041;
             }
+            &-header{
+                .close{
+                    width: 40px;
+                }
+            }
             &-body{
                 padding: 30px 15px;
             }
             &-footer{
                 button{
-                    min-width: 100px;
+
                 }
             }
             &-backdrop{

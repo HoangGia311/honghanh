@@ -1,140 +1,194 @@
 <template>
-    <div class="app-toolbar">
-        <div class="app-toolbar-left">
-            <nav>
-                <ol class="breadcrumb">
-                    <!-- <li v-for="(item , index) in breadcrumb" :key="`index_${index}`" class="breadcrumb-item">
-                        <router-link  v-if="item.route" :to="{ name : item.route}">
-                            {{ item.name }}
-                        </router-link>
-                        <span v-else >
-                            {{ item.name }}
-                        </span>
-                    </li> -->
-                </ol>
-            </nav>
+    <div class="app-toolbar-container">
+        <div class="app-toolbar-container-left">
+            <div class="app-toolbar-logo">
+                <img src="@/assets/logo.svg" alt="">
+            </div>
         </div>
-        <div class="app-toolbar-right">
-            <div class="user">
-                <div class="btn-group user-dropdown">
-                    <span class="user-dropdown-btn" data-toggle="dropdown" data-display="static">
-                        <div class="icon-label">VP</div>
-                    </span>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" @click="userInfo">User Info</a>
-                        <a class="dropdown-item" @click="changePassword">Change password</a>
-                        <a class="dropdown-item" @click="logout">Logout</a>
-                    </div>
+        <div class="app-toolbar-container-right">
+            <div class="dropdown">
+                <button class="dropdown-toggle" type="button" data-toggle="dropdown" data-display="static">
+                    <template v-if="user">
+                        <div class="item-img">
+                            {{ user.name | avatar}}
+                        </div>
+                        <div class="item-text">
+                            {{ user.name }}
+                        </div>
+                    </template>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" >
+                        <span class="dropdown-item-icon">
+                            <svg viewBox="0 0 20 20" class="p_v3ASA" focusable="false" aria-hidden="true"><path d="M10 2c4.411 0 8 3.589 8 8s-3.589 8-8 8-8-3.589-8-8 3.589-8 8-8zm0 3c-1.104 0-2 .897-2 2s.896 2 2 2 2-.897 2-2-.896-2-2-2zm0 10c1.631 0 3.064-.792 3.978-2-.914-1.208-2.347-2-3.978-2-1.631 0-3.064.792-3.978 2 .914 1.208 2.347 2 3.978 2z"></path></svg>
+                        </span>
+                        <span class="dropdown-item-text">
+                            Your account
+                        </span>
+                    </a>
+                    <a class="dropdown-item"  @click="logout">
+                        <span class="dropdown-item-icon">
+                            <svg viewBox="0 0 20 20" class="p_v3ASA" focusable="false" aria-hidden="true"><path d="M10 16a1 1 0 1 1 0 2c-4.411 0-8-3.589-8-8s3.589-8 8-8a1 1 0 1 1 0 2c-3.309 0-6 2.691-6 6s2.691 6 6 6zm7.707-6.707a.999.999 0 0 1 0 1.414l-3 3a.997.997 0 0 1-1.414 0 .999.999 0 0 1 0-1.414L14.586 11H10a1 1 0 1 1 0-2h4.586l-1.293-1.293a.999.999 0 1 1 1.414-1.414l3 3z" fill-rule="evenodd"></path></svg>
+                        </span>
+                        <span class="dropdown-item-text">
+                            Logout
+                        </span>
+                    </a>
                 </div>
             </div>
         </div>
-        <modal-change-password v-model="modal_change_password"></modal-change-password>
-        <modal-user-info v-model="modal_user_info"></modal-user-info>
     </div>
 </template>
 <script>
-import { mapActions, mapGetters } from 'vuex';
-import ModalChangePassword from './modal-change-password'
-import ModalUserInfo from './modal-user-info'
-export default {
-    name : 'Toolbar',
-    components:{
-        ModalChangePassword,
-        ModalUserInfo
-    },
-    data(){
-        return {
-            modal_change_password : false,
-            modal_user_info : false,
-        }
-    },
-    computed:{
+import { mapGetters, mapMutations, mapActions } from 'vuex';
+    export default {
+        nane : 'toolbar',
+        components:{
 
-    },
-    methods:{
-        ...mapActions({
-            logout : 'LOGOUT'
-        }),
-        changePassword(){
-            this.modal_change_password = true
         },
-        userInfo(){
-            this.modal_user_info = true
-        }
+        data(){
+            return {
+
+            }
+        },
+        computed : {
+            ...mapGetters({
+                'user' : 'auth/getUser'
+            })
+        },
+        methods : {
+            ...mapActions({
+                'logout' : 'auth/logout'
+            })
+        },
+        mounted(){
+
+        },
     }
-}
 </script>
 <style lang="scss" scoped>
+    $bg-toolbar : rgb(28, 34, 96);
     .app-toolbar{
-        display: flex;
-        flex-wrap: nowrap;
-        flex-direction: row;
-        user-select: none;
-        &-left,&-right{
-            width: 50%;
-            padding: 0 15px;
-        }
-        &-right{
+        &-container{
             display: flex;
-            flex-direction: row-reverse;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: $bg-toolbar;
+            &-left{
+                width: 240px;
+                height: 100%;
+                z-index: 10;
+            }
+            &-right{
+                z-index: 10;
+                display: flex;
+                flex: 1 1 auto;
+                align-items: center;
+                justify-content: flex-end;
+                height: 100%;
+                padding: 0 15px;
+                .dropdown{
+                    .dropdown-toggle{
+                        background: transparent;
+                        border: none;
+                        box-shadow: none;
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        .item{
+                            &-img{
+                                width: 36px;
+                                height: 36px;
+                                border-radius: 50%;
+                                background: #f2f2f2;
+                                margin-right: 10px;
+                                font-size: 16px;
+                                color:$text-color;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-weight: 600;
+                            }
+                            &-text{
+                                color:#fff;
+                            }
+                        }
+                    }
+                    .dropdown-menu{
+                        min-width: 100%;
+                        display: block;
+                        opacity: 0;
+                        visibility: hidden;
+                        transition: all 0.3s ease;
+                        transform: translateY(15px);
+                        border-radius: 3px;
+                        border: none;
+                        box-shadow: 0 0 0 1px rgba(6,44,82,.1), 0 2px 16px rgba(33,43,54,.08);
+                        padding: 5px 0;
+                        right: 0;
+                        left: auto;
+                        &.show{
+                            opacity: 1;
+                            visibility: visible;
+                            transform: translateY(3px);
+                        }
+                        a{
+                            -webkit-appearance: none;
+                            -moz-appearance: none;
+                            appearance: none;
+                            margin: 0;
+                            padding: 0;
+                            background: none;
+                            border: none;
+                            font-size: inherit;
+                            line-height: inherit;
+                            color: inherit;
+                            text-decoration: none;
+                            display: flex;
+                            justify-content: flex-start;
+                            align-items: center;
+                            width: 100%;
+                            min-height: 4rem;
+                            padding: 1rem 1.6rem;
+                            text-align: left;
+                            cursor: pointer;
+                            border-radius: 0;
+                            &:hover{
+                                background-image: linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
+                            }
+                            &:focus{
+                                box-shadow: inset 0.2rem 0 0 #5c6ac4;
+                                background-image: linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3)),linear-gradient(rgba(223,227,232,.3),rgba(223,227,232,.3));
+                            }
+                            .dropdown-item{
+                                &-icon{
+                                    display: block;
+                                    height: 20px;
+                                    width: 20px;
+                                }
+                                &-text{
+                                    font-weight: 600;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
-        &-left{
+        &-logo{
+            width: 100%;
+            height: 100%;
+            padding: 10px 15px;
             display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
             align-items: center;
-        }
-        .breadcrumb{
-            background: transparent;
-            padding: 0;
-            margin: 0;
-            li{
-                a{
-                    color: $text;
-                    font-weight: 600;
-                    &:hover{
-                        color:$primary;
-                        text-decoration: none;
-                    }
-                }
-                span{
-                    color:$text;
-                    opacity: 0.6;
-                }
-            }
-        }
-        .user{
-            padding: 5px 0;
-            &-dropdown{
-                &-btn{
-                    height: 50px;
-                    width: 50px;
-                    border-radius: 50%;
-                    background: #f2f2f2;
-                    bottom: 1px solid #ccc;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    font-size: 16px;
-                    text-transform: uppercase;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                    &:hover{
-                        background: #ddd;
-                    }
-                }
-            }
-            .dropdown-menu{
-                a{
-                    cursor: pointer;
-                    display: block;
-                    min-height: 34px;
-                    display: flex;
-                    align-items: center;
-                    background: #fff;
-                    color:$text;
-                    &:hover{
-                        background: #ddd;
-                    }
-                }
+            img{
+                max-width: 100%;
+                max-height: 100%;
             }
         }
     }

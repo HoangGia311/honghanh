@@ -4,13 +4,13 @@ import { sync } from 'vuex-router-sync'
 import store from './store'
 import router from './router'
 import './plugins'
-import './components'
-import './styles/style.scss'
 import mixin from './mixins'
+
 
 Vue.config.productionTip = false
 
 sync(store, router, { moduleName: 'router' } )
+
 Vue.mixin(mixin)
 
 
