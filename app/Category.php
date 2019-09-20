@@ -9,7 +9,7 @@ class Category extends Model
 {
     use SoftDeletes;
     protected $table = 'categories';
-    protected $fillable = ['code','parent_id','primary_image','path'];
+    protected $fillable = ['parent_id','primary_image','path'];
 
     public function en(){
         return $this->hasOne('App\EnCategory','category_id','id');

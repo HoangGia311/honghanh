@@ -18,11 +18,11 @@ class CategoryController extends Controller
         $keyword = $request->input('keyword','');
         $limit = (int)$request->input('limit',config("constants.ITEM_PER_PAGE"));
         $query = Category::query();
-        if(!empty($keyword)){
-            $query->where(function($query)use($keyword){
-                $query->where("code","like","%$keyword%");
-            });
-        }
+        // if(!empty($keyword)){
+        //     $query->where(function($query)use($keyword){
+        //         $query->where("code","like","%$keyword%");
+        //     });
+        // }
         $categories = $query->paginate($limit);	
         return APIResponse::success($categories);
     }
@@ -34,7 +34,6 @@ class CategoryController extends Controller
 
     public function store(Request $request){
         $validator = Validator::make($request->all(), [
-            'code' => 'required|max:191',
             'vi' => 'required|array',
             'vi.name' => 'required|max:191',
             'en' => 'required|array',
@@ -84,7 +83,7 @@ class CategoryController extends Controller
     }
 
     public function edit(Category $category){
-        $categories =  Category::where('id','!=',$category->id)->get(["code","id"]);
+        $categories =  Category::where('id','!=',$category->id)->get();
         $category->load(['en','vi']);
         return APIResponse::success(compact('categories','category'));
     }
@@ -94,7 +93,6 @@ class CategoryController extends Controller
         $category = Category::find($id);
         if ($category) {
             $validator = Validator::make($request->all(), [
-                'code' => 'required|max:191',
                 'vi'    => 'required|array',
                 'vi.name' => 'required|max:191',
                 'en'       => 'required|array',
@@ -105,7 +103,6 @@ class CategoryController extends Controller
             }
             $data = $request->all();
 
-            $category->code = $data['code'];
             $category->parent_id = isset($data['parent_id']) ? $data['parent_id'] : null;
             $path = '/' . $category->id;
             if (!empty($category->parent_id)) {

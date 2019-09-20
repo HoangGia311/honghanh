@@ -24,7 +24,15 @@ class PrimaryController extends Controller
     		case 'page':
     			return $this->getDataPage($data_alias->object_id);
     			break;
-    		
+    		case 'product':
+                break;
+            case 'post':
+                return $this->getDataPostDetail($data_alias->object_id);
+                break;
+            case 'cooking':
+                break;
+            case 'cooking':
+                break;
     		default:
     			return abort(404);
     			break;
@@ -65,24 +73,32 @@ class PrimaryController extends Controller
     }
 
     public function getHomePage($page){
-    	return "home_page";
+    	return view("primary.home");
     }
     public function getAboutUsPage($page){
-    	return "about_us";
+    	return view("primary.about_us");
     }
     public function getProductPage($page){
-    	return "product";
+    	return view("primary.product");
     }
     public function getDistributionPage($page){
-    	return "distribution";
+    	return view("primary.distribution");
     }
     public function getCookingPage($page){
-    	return "cooking";
+    	return view("primary.cooking");
     }
     public function getPostPage($page){
-    	return "post";
+    	return view("primary.post");
     }
     public function getContactPage($page){
-    	return "contact";
+    	return view("primary.contact");
+    }
+
+    public function getDataPostDetail($post_id = null){
+        $post = Post::find($post_id);
+        if(!$post){
+            return abort(404);
+        }
+        return view("primary.post_detail");
     }
 }
