@@ -1,5 +1,7 @@
 const webpack = require('webpack')
 module.exports = {
+	outputDir: '../public',
+	indexPath: process.env.NODE_ENV === 'production'? '../resources/views/index.blade.php' : 'index.html',
 	configureWebpack: {
 		plugins: [
 			new webpack.ProvidePlugin({
