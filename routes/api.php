@@ -35,4 +35,5 @@ Route::group(['middleware' => ['jwt.auth', 'log']], function () {
     Route::post('page/addComponent', 'API\PageController@addComponent')->name('page.addComponent');
     Route::delete('page/deleteComponent/{id}', 'API\PageController@deleteComponent')->name('page.deleteComponent');
     Route::get('page/listComponent', 'API\PageController@listComponent')->name('page.listComponent');
+    Route::post('page/updateComponents', 'API\PageController@updateComponents')->name('page.updateComponents');
 });

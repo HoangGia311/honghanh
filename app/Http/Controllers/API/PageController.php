@@ -42,4 +42,23 @@ class PageController extends Controller
     	$component = $query->get();
         return APIResponse::success($component);
     }
+    public function updateComponents(Request $request){
+        $validator = Validator::make(['data' => $request->all()], [
+            "data.*.code" => "required",
+            "data.*.type" => "required",
+            "data.*.data" => "array",
+            "data.*.page_id" => "required"
+        ]);
+        if ($validator->fails()) {
+            return APIResponse::fail([],$validator->errors()->first());
+        }
+        $data = $request->all();
+        foreach ($data as $row) {
+            $component = Component::find($row['id']);
+            if($component){
+                $component->update($row);   
+            }
+        }
+        return APIResponse::success();
+    }
 }
