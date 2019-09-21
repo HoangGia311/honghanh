@@ -11,13 +11,10 @@
 |
 */
 
-Auth::routes();
+// Auth::routes();
 
 Route::group(['prefix'=>'admin'], function() {
-    Route::any('{all}', function () {
-        return view('index');
-    })->where(['all' => '.*']);
-	// Route::get('/', 'HomeController@index')->name('home');
+    Route::any('/{any?}', 'PortalController@index')->where(['any' => '.*']);
 	// Route::resource('users', 'Admin\UserController', ['except' => [ 'show' ]]);
 	// Route::resource('roles', 'Admin\RoleController', ['except' => [ 'show' ]]);
     // Route::get('change-password', 'Admin\UserController@getChangePassword')->name('getChangePassword');

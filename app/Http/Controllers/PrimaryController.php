@@ -8,6 +8,9 @@ use App\Page;
 
 class PrimaryController extends Controller
 {
+    public $dataSendView = [
+        "page_title" => "Hồng Hạnh"
+    ];
     public function index($path = null){
     	if($path == null){
     		$page = Page::with(['component','vi','en'])->where('code','home_page')->first();
@@ -73,25 +76,33 @@ class PrimaryController extends Controller
     }
 
     public function getHomePage($page){
-    	return view("primary.home");
+        $this->dataSendView['page'] = "home";
+        $this->dataSendView['page_title'] = "Hồng Hạnh";
+    	return view("primary.home",$this->dataSendView );
     }
     public function getAboutUsPage($page){
-    	return view("primary.about_us");
+        $this->dataSendView['page'] = "about_us";
+    	return view("primary.about_us",$this->dataSendView);
     }
     public function getProductPage($page){
-    	return view("primary.product");
+        $this->dataSendView['page'] = "product";
+    	return view("primary.product",$this->dataSendView);
     }
     public function getDistributionPage($page){
-    	return view("primary.distribution");
+        $this->dataSendView['page'] = "distribution";
+    	return view("primary.distribution",$this->dataSendView);
     }
     public function getCookingPage($page){
-    	return view("primary.cooking");
+        $this->dataSendView['page'] = "cooking";
+    	return view("primary.cooking",$this->dataSendView);
     }
     public function getPostPage($page){
-    	return view("primary.post");
+        $this->dataSendView['page'] = "post";
+    	return view("primary.post",$this->dataSendView);
     }
     public function getContactPage($page){
-    	return view("primary.contact");
+        $this->dataSendView['page'] = "contact";
+    	return view("primary.contact",$this->dataSendView);
     }
 
     public function getDataPostDetail($post_id = null){
