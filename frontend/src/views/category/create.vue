@@ -11,7 +11,7 @@
 					</router-link>
 				</div>
 				<div class="col col-6 text-right">
-					<button @click.stop.prevent="submit" :class="{ 'is-loading' : is_loading }">
+					<button class="button" @click.stop.prevent="submit" :class="{ 'is-loading' : is_loading }">
 						Submit
 					</button>
 				</div>

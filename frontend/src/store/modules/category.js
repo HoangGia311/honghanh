@@ -24,7 +24,10 @@ const actions = {
     },
     async get({ } , payload){
         return await axios.get(`/api/categories/${payload}/edit`)
-    }
+	},
+	async all({}, payload){
+		return await axios.get('/api/categories/all')
+	}
 };
 
 const mutations = {

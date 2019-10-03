@@ -16,7 +16,7 @@
                     <div class="row">
                         <div class="col col-12 m-b-30">
                             <div class="input-group">
-                                <button class="secondary">Filters</button>
+                                <button class="button secondary">Filters</button>
                                 <input type="search" v-model="pagination.keyword" @keyup="onKeyword"/>
                             </div>
                         </div>
@@ -63,7 +63,7 @@
                                                 </td>
                                                 <td class="td-actions">
                                                     <router-link class="button secondary icon-edit" :to="{ name : 'EditProduct' , params : { id : item.id}}"></router-link>
-                                                    <button class="secondary icon-trash" @click.stop.prevent="remove(item.id)"></button>
+                                                    <button class="button secondary icon-trash" @click.stop.prevent="remove(item.id)"></button>
                                                 </td>
                                             </tr>
                                         </template>
@@ -71,7 +71,7 @@
                                             <tr>
                                                 <td colspan="20" class="text-center  p-t-30 p-b-30">
                                                     <h3>
-                                                        Could not find any categories
+                                                        Could not find any data
                                                     </h3>
                                                 </td>
                                             </tr>

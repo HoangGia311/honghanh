@@ -5,7 +5,7 @@
                 <h1>Create User</h1>
             </div>
             <div class="page-actions">
-                <button type="submit">
+                <button class="button" type="submit">
                     Submit
                 </button>
             </div>

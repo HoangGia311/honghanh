@@ -16,7 +16,7 @@
                     <div class="row">
                         <div class="col col-12 m-b-30">
                             <div class="input-group">
-                                <button class="secondary">Filters</button>
+                                <button class="button secondary">Filters</button>
                                 <input type="search" v-model="pagination.keyword" @keyup="onKeyword" />
                             </div>
                         </div>

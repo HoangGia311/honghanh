@@ -127,8 +127,8 @@ fieldset {
   padding: 0;
   border-width: 0;
 }
-input[type="checkbox"],
-input[type="radio"] {
+input[type="checkbox"] ,.div-checkbox ,
+input[type="radio"] ,.div-radio {
   position: relative;
   display: inline-block;
   height: 1.6rem;
@@ -171,7 +171,7 @@ input[type="radio"] {
   }
 }
 
-input[type="checkbox"] {
+input[type="checkbox"] ,.div-checkbox {
   border-radius: .3rem;
 
   &:disabled:checked:after {
@@ -189,7 +189,7 @@ input[type="checkbox"] {
     opacity: 0;
     visibility: hidden;
   }
-  &:checked:after {
+  &:checked:after ,&.checked:after {
     opacity: 1;
     visibility: visible;
   }

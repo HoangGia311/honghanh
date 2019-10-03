@@ -12,3 +12,12 @@
     clear: both;
 }
 
+@mixin col(){
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+}
+@mixin flex($width){
+	flex: 0 0 $width;
+    max-width: $width;
+}

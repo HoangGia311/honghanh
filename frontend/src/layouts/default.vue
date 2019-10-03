@@ -29,6 +29,9 @@
                 </div>
             </template>
 			<vue-gallery />
+			<vue-modal-cooking />
+			<vue-modal-product />
+			<vue-modal-category />
         </div>
     </transition>
 </template>

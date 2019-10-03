@@ -4,7 +4,7 @@ import { store } from '@/main.js'
 import auth from '@/middleware/auth'
 Vue.use(Router)
 const router = new Router({
-	mode: 'history',
+	mode: 'hash',
 	scrollBehavior(to) {
         if (to.hash) {
             return window.scrollTo({ top: document.querySelector(to.hash).offsetTop, behavior: 'smooth' });
@@ -13,195 +13,236 @@ const router = new Router({
     },
 	routes: [
 		{
-			path: '/admin',
+			path: '/',
 			meta : {
 				middleware : [auth],
 			},
-			component: () => import( /* webpackChunkName: "dashboard" */ '@/views/layout.vue'),
+			component: () => import( /* webpackChunkName: "dashboard" */ '@/views/dashboard/layout.vue'),
+			children : [
+				{
+					path : '',
+					name : 'Dashboard',
+					meta : {
+						middleware : [auth],
+					},
+					component: () => import( /* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue'),
+				},
+			]
+		},
+		{
+			path: '/user',
+			meta : {
+				middleware : [auth],
+			},
+			component: () => import( /* webpackChunkName: "discount" */ '@/views/user/layout.vue'),
 			children : [
 				{
 					path: '',
+					name : 'User',
 					meta : {
 						middleware : [auth],
 					},
-					component: () => import( /* webpackChunkName: "dashboard" */ '@/views/dashboard/layout.vue'),
-					children : [
-						{
-							path : '',
-							name : 'Dashboard',
-							meta : {
-								middleware : [auth],
-							},
-							component: () => import( /* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue'),
-						},
-					]
+					component: () => import( /* webpackChunkName: "discount" */ '@/views/user/index.vue')
 				},
 				{
-					path: 'user',
+					path: 'create',
+					name : 'CreateUser',
 					meta : {
 						middleware : [auth],
 					},
-					component: () => import( /* webpackChunkName: "discount" */ '@/views/user/layout.vue'),
-					children : [
-						{
-							path: '',
-							name : 'User',
-							meta : {
-								middleware : [auth],
-							},
-							component: () => import( /* webpackChunkName: "discount" */ '@/views/user/index.vue')
-						},
-						{
-							path: 'create',
-							name : 'CreateUser',
-							meta : {
-								middleware : [auth],
-							},
-							component: () => import( /* webpackChunkName: "discount" */ '@/views/user/create.vue')
-						},
-						{
-							path: ':id',
-							name : 'EditUser',
-							meta : {
-								middleware : [auth],
-							},
-							component: () => import( /* webpackChunkName: "discount" */ '@/views/user/edit.vue')
-						}
-					]
+					component: () => import( /* webpackChunkName: "discount" */ '@/views/user/create.vue')
 				},
 				{
-					path: 'category',
+					path: ':id',
+					name : 'EditUser',
 					meta : {
 						middleware : [auth],
 					},
-					component: () => import( /* webpackChunkName: "discount" */ '@/views/category/layout.vue'),
-					children : [
-						{
-							path: '',
-							name : 'Category',
-							meta : {
-								middleware : [auth],
-							},
-							component: () => import( /* webpackChunkName: "discount" */ '@/views/category/index.vue')
-						},
-						{
-							path: 'create',
-							name : 'CreateCategory',
-							meta : {
-								middleware : [auth],
-							},
-							component: () => import( /* webpackChunkName: "discount" */ '@/views/category/create.vue')
-						},
-						{
-							path: ':id',
-							name : 'EditCategory',
-							meta : {
-								middleware : [auth],
-							},
-							component: () => import( /* webpackChunkName: "discount" */ '@/views/category/edit.vue')
-						}
-					]
-				},
+					component: () => import( /* webpackChunkName: "discount" */ '@/views/user/edit.vue')
+				}
+			]
+		},
+		{
+			path: '/category',
+			meta : {
+				middleware : [auth],
+			},
+			component: () => import( /* webpackChunkName: "discount" */ '@/views/category/layout.vue'),
+			children : [
 				{
-					path: 'product',
+					path: '',
+					name : 'Category',
 					meta : {
 						middleware : [auth],
 					},
-					component: () => import( /* webpackChunkName: "discount" */ '@/views/product/layout.vue'),
-					children : [
-						{
-							path: '',
-							name : 'Product',
-							meta : {
-								middleware : [auth],
-							},
-							component: () => import( /* webpackChunkName: "discount" */ '@/views/product/index.vue')
-						},
-						{
-							path: 'create',
-							name : 'CreateProduct',
-							meta : {
-								middleware : [auth],
-							},
-							component: () => import( /* webpackChunkName: "discount" */ '@/views/product/create.vue')
-						},
-						{
-							path: ':id',
-							name : 'EditProduct',
-							meta : {
-								middleware : [auth],
-							},
-							component: () => import( /* webpackChunkName: "discount" */ '@/views/product/edit.vue')
-						}
-					]
+					component: () => import( /* webpackChunkName: "discount" */ '@/views/category/index.vue')
 				},
 				{
-					path: 'post',
+					path: 'create',
+					name : 'CreateCategory',
 					meta : {
 						middleware : [auth],
 					},
-					component: () => import( /* webpackChunkName: "discount" */ '@/views/post/layout.vue'),
-					children : [
-						{
-							path: '',
-							name : 'Post',
-							meta : {
-								middleware : [auth],
-							},
-							component: () => import( /* webpackChunkName: "discount" */ '@/views/post/index.vue')
-						},
-						{
-							path: 'create',
-							name : 'CreatePost',
-							meta : {
-								middleware : [auth],
-							},
-							component: () => import( /* webpackChunkName: "discount" */ '@/views/post/create.vue')
-						},
-						{
-							path: ':id',
-							name : 'EditPost',
-							meta : {
-								middleware : [auth],
-							},
-							component: () => import( /* webpackChunkName: "discount" */ '@/views/post/edit.vue')
-						}
-					]
+					component: () => import( /* webpackChunkName: "discount" */ '@/views/category/create.vue')
 				},
 				{
-					path: 'gallery',
+					path: ':id',
+					name : 'EditCategory',
 					meta : {
 						middleware : [auth],
 					},
-					component: () => import( /* webpackChunkName: "discount" */ '@/views/gallery/layout.vue'),
-					children : [
-						{
-							path: '',
-							name : 'Gallery',
-							meta : {
-								middleware : [auth],
-							},
-							component: () => import( /* webpackChunkName: "discount" */ '@/views/gallery/index.vue')
-						},
-					]
+					component: () => import( /* webpackChunkName: "discount" */ '@/views/category/edit.vue')
+				}
+			]
+		},
+		{
+			path: '/product',
+			meta : {
+				middleware : [auth],
+			},
+			component: () => import( /* webpackChunkName: "discount" */ '@/views/product/layout.vue'),
+			children : [
+				{
+					path: '',
+					name : 'Product',
+					meta : {
+						middleware : [auth],
+					},
+					component: () => import( /* webpackChunkName: "discount" */ '@/views/product/index.vue')
 				},
 				{
-					path: 'login',
-					name: 'Login',
-					meta: {
-						layout: 'auth',
+					path: 'create',
+					name : 'CreateProduct',
+					meta : {
+						middleware : [auth],
 					},
-					component: () => import( /* webpackChunkName: "auth" */ '@/views/auth/index.vue')
+					component: () => import( /* webpackChunkName: "discount" */ '@/views/product/create.vue')
 				},
 				{
-					path: '*',
-					name: '404',
-					meta: {
-						layout: 'error'
+					path: ':id',
+					name : 'EditProduct',
+					meta : {
+						middleware : [auth],
 					},
-					component: () => import( /* webpackChunkName: "error" */ '@/views/errors/_404.vue')
+					component: () => import( /* webpackChunkName: "discount" */ '@/views/product/edit.vue')
+				}
+			]
+		},
+		{
+			path: '/cooking',
+			meta : {
+				middleware : [auth],
+			},
+			component: () => import( /* webpackChunkName: "discount" */ '@/views/cooking/layout.vue'),
+			children : [
+				{
+					path: '',
+					name : 'Cooking',
+					meta : {
+						middleware : [auth],
+					},
+					component: () => import( /* webpackChunkName: "discount" */ '@/views/cooking/index.vue')
+				},
+				{
+					path: 'create',
+					name : 'CreateCooking',
+					meta : {
+						middleware : [auth],
+					},
+					component: () => import( /* webpackChunkName: "discount" */ '@/views/cooking/create.vue')
+				},
+				{
+					path: ':id',
+					name : 'EditCooking',
+					meta : {
+						middleware : [auth],
+					},
+					component: () => import( /* webpackChunkName: "discount" */ '@/views/cooking/edit.vue')
+				}
+			]
+		},
+		{
+			path: '/post',
+			meta : {
+				middleware : [auth],
+			},
+			component: () => import( /* webpackChunkName: "discount" */ '@/views/post/layout.vue'),
+			children : [
+				{
+					path: '',
+					name : 'Post',
+					meta : {
+						middleware : [auth],
+					},
+					component: () => import( /* webpackChunkName: "discount" */ '@/views/post/index.vue')
+				},
+				{
+					path: 'create',
+					name : 'CreatePost',
+					meta : {
+						middleware : [auth],
+					},
+					component: () => import( /* webpackChunkName: "discount" */ '@/views/post/create.vue')
+				},
+				{
+					path: ':id',
+					name : 'EditPost',
+					meta : {
+						middleware : [auth],
+					},
+					component: () => import( /* webpackChunkName: "discount" */ '@/views/post/edit.vue')
+				}
+			]
+		},
+		{
+			path: '/gallery',
+			meta : {
+				middleware : [auth],
+			},
+			component: () => import( /* webpackChunkName: "discount" */ '@/views/gallery/layout.vue'),
+			children : [
+				{
+					path: '',
+					name : 'Gallery',
+					meta : {
+						middleware : [auth],
+					},
+					component: () => import( /* webpackChunkName: "discount" */ '@/views/gallery/index.vue')
 				},
 			]
+		},
+		{
+			path: '/theme',
+			meta : {
+				middleware : [auth],
+			},
+			component: () => import( /* webpackChunkName: "discount" */ '@/views/theme/layout.vue'),
+			children : [
+				{
+					path: '',
+					name : 'Theme',
+					meta : {
+						middleware : [auth],
+					},
+					component: () => import( /* webpackChunkName: "discount" */ '@/views/theme/index.vue')
+				},
+			]
+		},
+		{
+			path: '/login',
+			name: 'Login',
+			meta: {
+				layout: 'auth',
+			},
+			component: () => import( /* webpackChunkName: "auth" */ '@/views/auth/index.vue')
+		},
+		{
+			path: '*',
+			name: '404',
+			meta: {
+				layout: 'error'
+			},
+			component: () => import( /* webpackChunkName: "error" */ '@/views/errors/_404.vue')
 		},
 	]
 })

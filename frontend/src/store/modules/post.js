@@ -16,15 +16,18 @@ const actions = {
         return await axios.post('/api/posts' ,  payload )
     },
     async update({}, payload){
-        let { id ,  name , password , email } = payload
-        return await axios.put(`/api/posts/${id}` ,  { name  , email } )
+        let { id ,  formdata  } = payload
+        return await axios.put(`/api/posts/${id}` ,  formdata )
     },
     async delete({}, payload){
         return await axios.delete(`/api/posts/${payload}`);
     },
     async get({ } , payload){
         return await axios.get(`/api/posts/${payload}/edit`)
-    }
+	},
+	async getCreate({}, payload){
+        return await axios.get('/api/posts/create' )
+    },
 };
 
 const mutations = {

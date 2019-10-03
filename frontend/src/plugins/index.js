@@ -6,15 +6,23 @@ import pagination from '@/components/pagination'
 import Modal from './modal'
 import Gallery from '@/components/gallery'
 Vue.use(Gallery)
+import Cooking from '@/components/cooking'
+Vue.use(Cooking)
+import Product from '@/components/product'
+Vue.use(Product)
+import category from '@/components/category'
+Vue.use(category)
 import './helper'
 import './axios'
 import './filter'
 import 'bootstrap'
 import '@/assets/fontawesome/css/all.css'
 import '@/styles/style.scss'
-import CKEditor from '@ckeditor/ckeditor5-vue';
 
-Vue.use( CKEditor );
+import '@/assets/summernote/summernote-lite.css';
+import '@/assets/summernote/summernote-lite.js';
+import VueEditor from '@/components/vue-editor'
+Vue.component('ckeditor' , VueEditor)
 Vue.use(Modal)
 Vue.use(Vuelidate)
 Vue.use(Toasted, {

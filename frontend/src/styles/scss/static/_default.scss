@@ -67,7 +67,7 @@ a:disabled {
     animation: spinner-border .5s linear infinite;
 }
 .modal{
-    display: block;
+    // display: block;
     overflow: hidden auto;
     padding: 50px 0;
     &-dialog{
@@ -155,5 +155,10 @@ button{
 }
 
 .ck-editor__editable {
-    min-height: 300px;
+    min-height: 200px;
+}
+.ck-200{
+	.ck-editor__editable {
+		min-height: 150px;
+	}
 }
