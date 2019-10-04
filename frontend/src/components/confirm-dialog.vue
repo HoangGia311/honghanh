@@ -14,8 +14,8 @@
                             {{ options.content }}
                         </div>
                         <div class="modal-footer">
-                            <button type="button" v-if="options.btnCloseShow" :class="options.btnCloseClass" @click="close()">{{ options.btnClose}}</button>
-                            <button type="button" v-if="options.btnSaveShow" :class="[{ 'is-loading' : options.isLoading } , options.btnSaveClass]" @click="onSave">
+                            <button type="button" class="button" v-if="options.btnCloseShow" :class="options.btnCloseClass" @click="close()">{{ options.btnClose}}</button>
+                            <button type="button" class="button" v-if="options.btnSaveShow" :class="[{ 'is-loading' : options.isLoading } , options.btnSaveClass]" @click="onSave">
                                 {{options.btnSave}}
                             </button>
                         </div>

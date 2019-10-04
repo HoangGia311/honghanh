@@ -16,7 +16,7 @@
                     <div class="row">
                         <div class="col col-12 m-b-30">
                             <div class="input-group">
-                                <button class="secondary">Filters</button>
+                                <button class="button secondary">Filters</button>
                                 <input type="search" v-model="pagination.keyword" @keyup="onKeyword"/>
                             </div>
                         </div>
@@ -33,7 +33,8 @@
                                     <thead>
                                         <tr>
                                             <th class="td-index">#</th>
-                                            <th class="td-name">Name</th>
+											<th class="td-image">Image</th>
+                                            <th class="td-name">Title</th>
                                             <th class="td-email">Alias</th>
                                             <th class="td-actions">Actions</th>
                                         </tr>
@@ -44,15 +45,25 @@
                                                 <td class="td-index">
                                                     {{ pagination.limit * ( pagination.current_page - 1) + index + 1 }}
                                                 </td>
+												<td class="td-image">
+													<div class="item-image">
+														<template v-if="item.image">
+															<img :src="item.image.path" alt="">
+														</template>
+														<template v-else>
+															No image
+														</template>
+													</div>
+                                                </td>
                                                 <td class="td-name">
-                                                    {{ item.code }}
+                                                    {{ item.vi ? item.vi.title : '' }}
                                                 </td>
                                                 <td class="td-email">
                                                     {{ item.alias }}
                                                 </td>
                                                 <td class="td-actions">
                                                     <router-link class="button secondary icon-edit" :to="{ name : 'EditPost' , params : { id : item.id}}"></router-link>
-                                                    <button class="secondary icon-trash" @click.stop.prevent="remove(item.id)"></button>
+                                                    <button class="button secondary icon-trash" @click.stop.prevent="remove(item.id)"></button>
                                                 </td>
                                             </tr>
                                         </template>
@@ -60,7 +71,7 @@
                                             <tr>
                                                 <td colspan="20" class="text-center  p-t-30 p-b-30">
                                                     <h3>
-                                                        Could not find any posts
+                                                        Could not find any post
                                                     </h3>
                                                 </td>
                                             </tr>
@@ -157,7 +168,7 @@ export default {
         remove(id){
             this.$confirm.show({
                 title : 'Confirm',
-                content : 'Do do want to delete this user ?',
+                content : 'Do do want to delete this product ?',
                 btnSave : 'Delete',
                 btnSaveClass : 'warning',
                 btnClose: 'Cancel',
@@ -167,7 +178,7 @@ export default {
                             let { code  , message = ''} = res.data 
                             if( code ){
                                 this.reload()
-                                this.$toasted.success('Delete successfully !')
+                                this.$toasted.success(message)
                             }else{
                                 this.$toasted.error(message)
                             }
@@ -202,7 +213,26 @@ export default {
         }
         &-name{
 
-        }
+		}
+		&-image{
+			max-width: 100px;
+			width: 100px;
+			min-width: 100px;
+			.item-image{
+				width: 40px;
+				height: 40px;
+				border-radius: 4px;
+				border: 1px soldi #ddd;
+				overflow: hidden;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				img{
+					max-width: 100%;
+					max-height: 100%;
+				}
+			}
+		}
         &-actions{
             width: 150px;
             text-align: center;

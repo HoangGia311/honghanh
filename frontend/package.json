@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "rimraf  ../public/{js,css,img} && vue-cli-service build --no-clean",
+    "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "dev": "npm run serve"
   },
@@ -14,6 +14,7 @@
     "@shopify/polaris": "^3.21.1",
     "accounting-js": "^1.1.1",
     "bootstrap": "^4.3.1",
+    "codemirror": "^5.49.0",
     "core-js": "^2.6.5",
     "jquery": "^3.4.1",
     "js-cookie": "^2.2.0",
@@ -21,6 +22,8 @@
     "moment": "^2.24.0",
     "node-sass": "^4.12.0",
     "popper.js": "^1.15.0",
+    "postcss-loader": "^3.0.0",
+    "raw-loader": "^0.5.1",
     "sass-loader": "^7.1.0",
     "vue": "^2.6.10",
     "vue-extend-layout": "^2.0.6",
@@ -43,7 +46,8 @@
     "file-loader": "^4.0.0",
     "vue-cli-plugin-axios": "0.0.4",
     "vue-cli-plugin-layouts": "^1.0.2",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.10",
+    "@johmun/vue-tags-input": "^2.1.0"
   },
   "eslintConfig": {
     "root": true,

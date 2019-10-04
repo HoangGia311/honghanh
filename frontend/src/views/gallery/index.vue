@@ -5,9 +5,9 @@
                 <h1>Gallery</h1>
             </div>
             <div class="page-actions">
-                <button class="button" @click.stop.prevent="form_create.show = true">
+                <!-- <button class="button" @click.stop.prevent="form_create.show = true">
                     Add Gallery
-                </button>
+                </button> -->
 				 <button class="button" @click.stop.prevent="upload.show = true">
                     Upload Image
                 </button>
@@ -15,14 +15,14 @@
         </div>
         <div class="page-body">
             <div class="card">
-				<ul class="tabs">
+				<!-- <ul class="tabs">
 					<li >
 						<router-link :to="setRouterlink('')">All</router-link>
 					</li>
 					<li v-for="(item,index) in groups" :key="`key_${index}`">
 						<router-link :to="setRouterlink(item.id)">{{ item.name }}</router-link>
 					</li>
-				</ul>
+				</ul> -->
 				<transition name="fade" mode="out-in">
 					<div class="card-section" v-if="is_loading" key="is-loading">
 						<div class="text-center p-t-80 p-b-80">
@@ -53,10 +53,10 @@
 						<input type="text" v-model="form_create.name">
 					</div>
 					<div class="modal-image-footer">
-						<button class="secondary" type="button" @click="form_create.show = false">
+						<button class="button secondary" type="button" @click="form_create.show = false">
 							Cancel
 						</button>
-						<button class="primary" type="submit" :class="{ 'is-loading' : form_create.is_loading }" >
+						<button class="button primary" type="submit" :class="{ 'is-loading' : form_create.is_loading }" >
 							Create
 						</button>
 					</div>
@@ -95,10 +95,10 @@
 					</div>
 					<div class="modal-upload-footer">
 						
-						<button class="secondary" type="button" @click="hideModalUpload()">
+						<button class="button secondary" type="button" @click="hideModalUpload()">
 							Cancel
 						</button>
-						<button class="primary" @click.stop.prevent="handleUpload()" :class="{ 'is-loading' : upload.is_loading }" >
+						<button class="button primary" @click.stop.prevent="handleUpload()" :class="{ 'is-loading' : upload.is_loading }" >
 							Upload
 						</button>
 					</div>

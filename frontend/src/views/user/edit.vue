@@ -26,7 +26,7 @@
                         <h1>Update User</h1>
                     </div>
                     <div class="page-actions">
-                        <button type="submit">
+                        <button class="button" type="submit">
                             Save Update
                         </button>
                     </div>

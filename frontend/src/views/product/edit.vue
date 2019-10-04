@@ -29,7 +29,7 @@
 							</router-link>
 						</div>
 						<div class="col col-6 text-right">
-							<button @click.stop.prevent="submit" :class="{ 'is-loading' : is_loading }">
+							<button class="button" @click.stop.prevent="submit" :class="{ 'is-loading' : is_loading }">
 								Submit
 							</button>
 						</div>
@@ -39,101 +39,90 @@
 					<div class="row">
 						<div class="col col-12">
 							<div class="card">
-								<ul class="tabs">
-									<li :class="{ 'active' :  active == 'vi'}">
-										<a href="#" @click.stop.prevent="active = 'vi'">Vi</a>
-									</li>
-									<li :class="{ 'active' :  active == 'en'}">
-										<a href="#" @click.stop.prevent="active = 'en'">En</a>
-									</li>
-									<li :class="{ 'active' :  active == 'seo'}">
-										<a href="#" @click.stop.prevent="active = 'seo'">SEO</a>
-									</li>
-								</ul>
-								<transition name="fade" mode="out-in">
-									<div v-if="active == 'vi'" key="vi" class="card-section">
-										<div class="m-b-15" :class="{ 'error' : formstate && $v.form.vi.name.$invalid}">
-											<label class="m-b-5">Vi Title </label>
-											<input type="text"  v-model="form.vi.name">
-										</div>
-										<div class="m-b-15" :class="{ 'error' : formstate && $v.form.vi.description.$invalid}">
-											<label class="m-b-5">Vi Description</label>
-											<ckeditor :editor="editor" v-model="form.vi.description" :config="editorConfig"></ckeditor>
-										</div>
-										<div class="m-b-15" :class="{ 'error' : formstate && $v.form.vi.properties.$invalid}">
-											<label class="m-b-5">Properties</label>
-											<div>
-												<div class="row" v-for="(item, index) in form.vi.properties" :key="`index_${index}`">
-													<div class="col col-4">
-														<label>Name</label>
-														<input type="text"  v-model="item.name">
-													</div>
-													<div class="col col-8">
-														<label>Value</label>
-														<vue-tags-input v-model="item.value" @tags-changed="newTags => item.children = newTags"  :tags="item.children" placeholder="add property" />
-													</div>
+								<div  key="vi" class="card-section">
+									<div class="m-b-15" :class="{ 'error' : formstate && $v.form.vi.name.$invalid}">
+										<label class="m-b-5">Vi Title </label>
+										<input type="text"  v-model="form.vi.name">
+									</div>
+									<div class="m-b-15" :class="{ 'error' : formstate && $v.form.vi.description.$invalid}">
+										<label class="m-b-5">Vi Description</label>
+										<ckeditor  v-model="form.vi.description" ></ckeditor>
+									</div>
+									<div class="m-b-15" :class="{ 'error' : formstate && $v.form.vi.properties.$invalid}">
+										<label class="m-b-5">Properties</label>
+										<div>
+											<div class="row" v-for="(item, index) in form.vi.properties" :key="`index_${index}`">
+												<div class="col col-4">
+													<label>Name</label>
+													<input type="text"  v-model="item.name">
+												</div>
+												<div class="col col-8">
+													<label>Value</label>
+													<vue-tags-input v-model="item.value" @tags-changed="newTags => item.children = newTags"  :tags="item.children" placeholder="add property" />
 												</div>
 											</div>
 										</div>
 									</div>
-								
-									<div v-else-if="active =='en'" key="en" class="card-section">
-										<div class="m-b-15" :class="{ 'error' : formstate && $v.form.en.name.$invalid}">
-											<label class="m-b-5">En Title </label>
-											<input type="text"  v-model="form.en.name">
-										</div>
-										<div class="m-b-15" :class="{ 'error' : formstate && $v.form.en.description.$invalid}">
-											<label class="m-b-5">En Description</label>
-											<ckeditor :editor="editor" v-model="form.en.description" :config="editorConfig"></ckeditor>
-										</div>
-										<div class="m-b-15" :class="{ 'error' : formstate && $v.form.en.properties.$invalid}">
-											<label class="m-b-5">Properties</label>
-											<div >
-												<div class="row" v-for="(item, index) in form.en.properties" :key="`index_${index}`">
-													<div class="col col-4" >
-														<label>Name</label>
-														<input type="text"  v-model="item.name">
-													</div>
-													<div class="col col-8">
-														<label>Value</label>
-														<vue-tags-input v-model="item.value" @tags-changed="newTags => item.children = newTags"  :tags="item.children" placeholder="add property" />
-													</div>
+								</div>
+							</div>
+							<div class="card">
+								<div  key="en" class="card-section">
+									<div class="m-b-15" :class="{ 'error' : formstate && $v.form.en.name.$invalid}">
+										<label class="m-b-5">En Title </label>
+										<input type="text"  v-model="form.en.name">
+									</div>
+									<div class="m-b-15" :class="{ 'error' : formstate && $v.form.en.description.$invalid}">
+										<label class="m-b-5">En Description</label>
+										<ckeditor   v-model="form.en.description" ></ckeditor>
+									</div>
+									<div class="m-b-15" :class="{ 'error' : formstate && $v.form.en.properties.$invalid}">
+										<label class="m-b-5">Properties</label>
+										<div >
+											<div class="row" v-for="(item, index) in form.en.properties" :key="`index_${index}`">
+												<div class="col col-4" >
+													<label>Name</label>
+													<input type="text"  v-model="item.name">
+												</div>
+												<div class="col col-8">
+													<label>Value</label>
+													<vue-tags-input v-model="item.value" @tags-changed="newTags => item.children = newTags"  :tags="item.children" placeholder="add property" />
 												</div>
 											</div>
 										</div>
 									</div>
-
-									<div v-else-if="active == 'seo'" key="seo" class="card-section">
-										<div class="row">
-											<div class="col col-3">
-												<div class="m-b-15" :class="{ 'error' : formstate && $v.form.primary_image.$invalid}">
-													<div class="box-item-image" @click="gallery">
-														<template v-if="form.primary_image">
-															<img :src="form.primary_image.path" alt="">
-														</template>
-														<template v-else>
-															<i class="icon-add-section"></i>
-														</template>
-													</div>
-												</div>
-											</div>
-											<div class="col col-9">
-												<div class="m-b-15" :class="{ 'error' : formstate && $v.form.meta.meta_title.$invalid}">
-													<label class="m-b-5">Meta title </label>
-													<input type="text"  v-model="form.meta.meta_title">
-												</div>
-												<div class="m-b-15" :class="{ 'error' : formstate && $v.form.meta.meta_description.$invalid}">
-													<label class="m-b-5">Meta description</label>
-													<input type="text"  v-model="form.meta.meta_description">
-												</div>
-												<div class="m-b-15" :class="{ 'error' : formstate && $v.form.meta.meta_keyword.$invalid}">
-													<label class="m-b-5">Meta keyword </label>
-													<input type="text"  v-model="form.meta.meta_keyword">
+								</div>
+							</div>
+							<div class="card">
+								<div  key="seo" class="card-section">
+									<div class="row">
+										<div class="col col-3">
+											<div class="m-b-15" :class="{ 'error' : formstate && $v.form.primary_image.$invalid}">
+												<div class="box-item-image" @click="gallery">
+													<template v-if="form.primary_image">
+														<img :src="form.primary_image.path" alt="">
+													</template>
+													<template v-else>
+														<i class="icon-add-section"></i>
+													</template>
 												</div>
 											</div>
 										</div>
+										<div class="col col-9">
+											<div class="m-b-15" :class="{ 'error' : formstate && $v.form.meta.meta_title.$invalid}">
+												<label class="m-b-5">Meta title </label>
+												<input type="text"  v-model="form.meta.meta_title">
+											</div>
+											<div class="m-b-15" :class="{ 'error' : formstate && $v.form.meta.meta_description.$invalid}">
+												<label class="m-b-5">Meta description</label>
+												<input type="text"  v-model="form.meta.meta_description">
+											</div>
+											<div class="m-b-15" :class="{ 'error' : formstate && $v.form.meta.meta_keyword.$invalid}">
+												<label class="m-b-5">Meta keyword </label>
+												<input type="text"  v-model="form.meta.meta_keyword">
+											</div>
+										</div>
 									</div>
-								</transition>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -146,7 +135,6 @@
 import { required } from 'vuelidate/lib/validators'
 import { mapActions } from 'vuex'
 import VueTagsInput from '@johmun/vue-tags-input';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 export default {
 	name : 'UpdateProduct',
 	components:{
@@ -159,8 +147,6 @@ export default {
 			is_loading : false,
 			is_error : false,
 			active : 'vi',
-			editor: ClassicEditor,
-			editorConfig: {},
 			form :{
 				"primary_image": '',
 				"vi" : {

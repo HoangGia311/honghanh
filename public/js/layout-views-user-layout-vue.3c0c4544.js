@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["layout-views-user-layout-vue"],{"9e34":function(e,t,n){"use strict";n.r(t);var u=function(){var e=this,t=e.$createElement,n=e._self._c||t;return n("transition",{attrs:{name:"fade",mode:"out-in"}},[n("router-view")],1)},a=[],o={name:"VueLayout"},r=o,s=n("2877"),i=Object(s["a"])(r,u,a,!1,null,null,null);t["default"]=i.exports}}]);
-//# sourceMappingURL=layout-views-user-layout-vue.3c0c4544.js.map

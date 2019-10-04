@@ -39,16 +39,10 @@
 					<div v-else-if="is_active == 'upload'" key="upload">
 						<div class="modal-upload-body">
 							<div class="row">
-								<div class="col col-8">
+								<div class="col col-12">
 									<label class="button secondary" for="modal_input_file" >
 										Choose files
 									</label>
-								</div>
-								<div class="col col-4">
-									<select v-model="upload.group_id">
-										<option value="">-- Choose group ---</option>
-										<option v-for="(item,index) in groups" :key="`keyall_${index}`" :value="item.id">{{ item.name }}</option>
-									</select>
 								</div>
 							</div>
 							<input type="file" @change="onChangeFile($event)" multiple="multiple" hidden id="modal_input_file"  accept="image/*">
@@ -66,12 +60,12 @@
 				</transition>
 			</div>
 			<div class="vue-modal-dialog-footer ">
-				<button class="secondary" @click="hide">Close</button>
+				<button class="button secondary" @click="hide">Close</button>
 				<template v-if="is_active == 'gallery'">
-					<button class="primary" @click.stop.prevent="save" :disabled="selected == null ">Select</button>
+					<button class=" button primary" @click.stop.prevent="save" :disabled="selected == null ">Select</button>
 				</template>
 				<template v-else>
-					<button class="primary" @click.stop.prevent="handleUpload()" :class="{ 'is-loading' : upload.is_loading }" >
+					<button class=" button primary" @click.stop.prevent="handleUpload()" :class="{ 'is-loading' : upload.is_loading }" >
 						Upload
 					</button>
 				</template>
@@ -310,7 +304,10 @@ export default {
 		Modal.EventBus.$on('show', (params) => {
 			this.show(params)
 		})
-  	}
+	},
+	  beforeDestroy(){
+		document.body.classList.remove("vue-modal-dialog-opened");
+	}
 }
 </script>
 <style lang="scss" >

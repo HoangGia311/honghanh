@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["layout-views-cooking-layout-vue"],{dbf7:function(e,t,n){"use strict";n.r(t);var o=function(){var e=this,t=e.$createElement,n=e._self._c||t;return n("transition",{attrs:{name:"fade",mode:"out-in"}},[n("router-view")],1)},u=[],a={name:"VueLayout"},i=a,r=n("2877"),l=Object(r["a"])(i,o,u,!1,null,null,null);t["default"]=l.exports}}]);
+//# sourceMappingURL=layout-views-cooking-layout-vue.51897b16.js.map

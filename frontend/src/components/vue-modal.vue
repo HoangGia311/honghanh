@@ -82,6 +82,9 @@ export default {
 				this.hide()
 			}
 		}
+	},
+	beforeDestroy(){
+		document.body.classList.remove("vue-modal-dialog-opened");
 	}
 }
 </script>
