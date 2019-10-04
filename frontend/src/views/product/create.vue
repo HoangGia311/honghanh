@@ -19,19 +19,30 @@
         </div>
         <div class="page-body">
             <div class="row">
-                <div class="col col-12">
+                <div class="col col-8">
                     <div class="card">
+						<div class="card-header">
+							<h5>Title</h5>
+						</div>
 						<div  key="vi" class="card-section">
 							<div class="m-b-15" :class="{ 'error' : formstate && $v.form.vi.name.$invalid}">
 								<label class="m-b-5">Vi Title </label>
 								<input type="text"  v-model="form.vi.name">
 							</div>
-							<div class="m-b-15" :class="{ 'error' : formstate && $v.form.vi.description.$invalid}">
-								<label class="m-b-5">Vi Description</label>
-								<ckeditor v-model="form.vi.description" ></ckeditor>
+							<div class="m-b-15" :class="{ 'error' : formstate && $v.form.en.name.$invalid}">
+								<label class="m-b-5">En Title </label>
+								<input type="text"  v-model="form.en.name">
 							</div>
+						</div>
+					</div>
+					
+					<div class="card">
+						<div class="card-header">
+							<h5>Properties</h5>
+						</div>
+						<div  key="vi" class="card-section">
 							<div class="m-b-15" :class="{ 'error' : formstate && $v.form.vi.properties.$invalid}">
-								<label class="m-b-5">Properties</label>
+								<label class="m-b-5">Vi Properties</label>
 								<div>
 									<div class="row" v-for="(item, index) in form.vi.properties" :key="`index_${index}`">
 										<div class="col col-4">
@@ -45,20 +56,9 @@
 									</div>
 								</div>
 							</div>
-						</div>
-					</div>
-					<div class="card">
-						<div  key="en" class="card-section">
-							<div class="m-b-15" :class="{ 'error' : formstate && $v.form.en.name.$invalid}">
-								<label class="m-b-5">En Title </label>
-								<input type="text"  v-model="form.en.name">
-							</div>
-							<div class="m-b-15" :class="{ 'error' : formstate && $v.form.en.description.$invalid}">
-								<label class="m-b-5">En Description</label>
-								<ckeditor  v-model="form.en.description" ></ckeditor>
-							</div>
+							<hr class="m-b-15 m-t-15">
 							<div class="m-b-15" :class="{ 'error' : formstate && $v.form.en.properties.$invalid}">
-								<label class="m-b-5">Properties</label>
+								<label class="m-b-5">En Properties</label>
 								<div >
 									<div class="row" v-for="(item, index) in form.en.properties" :key="`index_${index}`">
 										<div class="col col-4" >
@@ -74,39 +74,62 @@
 							</div>
 						</div>
 					</div>
+					
 					<div class="card">
-						<div  key="seo" class="card-section">
+						<div class="card-header">
+							<h5>Content</h5>
+						</div>
+						<div  key="en" class="card-section">
+							<div class="m-b-15" :class="{ 'error' : formstate && $v.form.vi.description.$invalid}">
+								<label class="m-b-5">Vi Description</label>
+								<ckeditor v-model="form.vi.description" ></ckeditor>
+							</div>
+							<div class="m-b-15" :class="{ 'error' : formstate && $v.form.en.description.$invalid}">
+								<label class="m-b-5">En Description</label>
+								<ckeditor  v-model="form.en.description" ></ckeditor>
+							</div>
+							
+						</div>
+					</div>
+                </div>
+				<div class="col col-4">
+					<div class="card">
+						<div class="card-header">
+							<h5>Meta</h5>
+						</div>
+						<div class="card-section">
 							<div class="row">
-								<div class="col col-3">
-									<div class="m-b-15" :class="{ 'error' : formstate && $v.form.primary_image.$invalid}">
-										<div class="box-item-image" @click="gallery">
-											<template v-if="form.primary_image">
-												<img :src="form.primary_image.path" alt="">
-											</template>
-											<template v-else>
-												<i class="icon-add-section"></i>
-											</template>
-										</div>
+								<div class="col col-12 m-b-15" :class="{ 'error' : formstate && $v.form.primary_image.$invalid}">
+									<label class="m-b-15">
+										Primary image
+									</label>
+									<div class="box-item-image" @click="gallery">
+										<template v-if="form.primary_image">
+											<img :src="form.primary_image.path" alt="">
+										</template>
+										<template v-else>
+											<i class="icon-add-section"></i>
+										</template>
 									</div>
 								</div>
-								<div class="col col-9">
+								<div class="col col-12">
 									<div class="m-b-15" :class="{ 'error' : formstate && $v.form.meta.meta_title.$invalid}">
 										<label class="m-b-5">Meta title </label>
-										<input type="text"  v-model="form.meta.meta_title">
+										<textarea v-model="form.meta.meta_title" rows="2"></textarea>
 									</div>
 									<div class="m-b-15" :class="{ 'error' : formstate && $v.form.meta.meta_description.$invalid}">
 										<label class="m-b-5">Meta description</label>
-										<input type="text"  v-model="form.meta.meta_description">
+										<textarea v-model="form.meta.meta_description" rows="2"></textarea>
 									</div>
 									<div class="m-b-15" :class="{ 'error' : formstate && $v.form.meta.meta_keyword.$invalid}">
 										<label class="m-b-5">Meta keyword </label>
-										<input type="text"  v-model="form.meta.meta_keyword">
+										<textarea v-model="form.meta.meta_keyword" rows="2"></textarea>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-                </div>
+				</div>
             </div>
         </div>
     </div>

@@ -52,7 +52,7 @@
                                                 </td>
                                                 <td class="td-actions">
                                                     <router-link class="button secondary icon-edit" :to="{ name : 'EditUser' , params : { id : item.id }}"></router-link>
-                                                    <button class="secondary icon-trash" @click.stop.prevent="remove(item.id)"></button>
+                                                    <button class="button secondary icon-trash" @click.stop.prevent="remove(item.id)"></button>
                                                 </td>
                                             </tr>
                                         </template>
@@ -157,7 +157,7 @@ export default {
         remove(id){
             this.$confirm.show({
                 title : 'Confirm',
-                content : 'Do do want to delete this user ?',
+                content : 'Do do want to delete this record ?',
                 btnSave : 'Delete',
                 btnSaveClass : 'warning',
                 btnClose: 'Cancel',

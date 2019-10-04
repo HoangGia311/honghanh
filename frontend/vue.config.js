@@ -1,6 +1,6 @@
 const webpack = require('webpack')
 module.exports = {
-	publicPath: process.env.NODE_ENV === 'production'? '/admin-portal/' : '/',
+	publicPath: process.env.NODE_ENV === 'production'? 'https://honghanh.com.vn/admin-portal/' : '/',
 	outputDir: '../public/admin-portal',
 	indexPath: process.env.NODE_ENV === 'production'? '../../resources/views/index.blade.php' : 'index.html',
 	configureWebpack: {

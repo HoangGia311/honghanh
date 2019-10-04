@@ -31,7 +31,7 @@
                     </transition>
                 </div>
                 <div class="text-right m-t-15">
-                    <button type="submit" :class="{ 'is-loading' : is_loading}">
+                    <button class="button" type="submit" :class="{ 'is-loading' : is_loading}">
                         Login
                     </button>
                 </div>

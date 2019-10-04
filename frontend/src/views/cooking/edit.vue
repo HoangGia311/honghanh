@@ -37,111 +37,127 @@
 				</div>
 				<div class="page-body">
 					<div class="row">
-						<div class="col col-12">
+						<div class="col col-8">
 							<div class="card">
+								<div class="card-header">
+									<h5>Title</h5>
+								</div>
 								<div  key="vi" class="card-section">
 									<div class="m-b-15" :class="{ 'error' : formstate && $v.form.vi.title.$invalid}">
 										<label class="m-b-5">Vi Title </label>
 										<input type="text"  v-model="form.vi.title">
 									</div>
-									<div class="m-b-15" :class="{ 'error' : formstate && $v.form.vi.description.$invalid}">
-										<label class="m-b-5">Vi Description</label>
-										<textarea v-model="form.vi.description" rows="4"></textarea>
-									</div>
-									<div class="m-b-15" >
-										<label class="m-b-5">Ingredients</label>
-										<div class="p-l-30">
-											<div class="row" v-for="(item, index) in form.vi.properties.ingredients" :key="`index_${index}`">
-												<div class="col col-4" :class="{ 'error' : formstate && vi_ingredients[index].name.$invalid }">
-													<label>Name</label>
-													<input type="text"  v-model="item.name">
-												</div>
-												<div class="col col-7" :class="{ 'error' : formstate && vi_ingredients[index].value.$invalid}">
-													<label>Value</label>
-													<input type="text"  v-model="item.value">
-												</div>
-												<div class="col col-1">
-													<label>&nbsp;</label>
-													<button class="secondary icon-trash" @click.stop.prevent="form.vi.properties.ingredients.splice(index, 1)"></button>
-												</div>
-											</div>
-											<div>
-												<button class="secondary icon-addition" @click.stop.prevent="form.vi.properties.ingredients.push({ name : '', value : ''})"></button>
-											</div>
-										</div>
-									</div>
-									<div class="m-b-15" >
-										<label class="m-b-5">Process</label>
-										<div class="p-l-30">
-											<div class="row" v-for="(item, index) in form.vi.properties.process" :key="`index_${index}`">
-												<div class="col col-11 ck-200" :class="{ 'error' : formstate && vi_process[index].value.$invalid }">
-													<label>Step</label>
-													<ckeditor   v-model="item.value" ></ckeditor>
-												</div>
-												<div class="col col-1">
-													<label>&nbsp;</label>
-													<button class="secondary icon-trash" @click.stop.prevent="form.vi.properties.process.splice(index, 1)"></button>
-												</div>
-											</div>
-											<div>
-												<button class="secondary icon-addition" @click.stop.prevent="form.vi.properties.process.push({value :''})"></button>
-											</div>
-										</div>
+									<div class="m-b-15" :class="{ 'error' : formstate && $v.form.en.title.$invalid}">
+										<label class="m-b-5">En Title </label>
+										<input type="text"  v-model="form.en.title">
 									</div>
 								</div>
 							</div>
 							<div class="card">
-								<div  key="en" class="card-section">
-									<div class="m-b-15" :class="{ 'error' : formstate && $v.form.en.title.$invalid}">
-										<label class="m-b-5">En Title </label>
-										<input type="text"  v-model="form.en.title">
+								<div class="card-header">
+									<h5>Description</h5>
+								</div>
+								<div  key="vi" class="card-section">
+									<div class="m-b-15" :class="{ 'error' : formstate && $v.form.vi.description.$invalid}">
+										<label class="m-b-5">Vi Description</label>
+										<textarea v-model="form.vi.description" rows="4"></textarea>
 									</div>
 									<div class="m-b-15" :class="{ 'error' : formstate && $v.form.en.description.$invalid}">
 										<label class="m-b-5">En Description</label>
 										<textarea v-model="form.en.description" rows="4"></textarea>
 									</div>
-									<div class="m-b-15" >
-										<label class="m-b-5">Ingredients</label>
-										<div class="p-l-30">
-											<div class="row" v-for="(item, index) in form.en.properties.ingredients" :key="`index_${index}`">
-												<div class="col col-4" :class="{ 'error' : formstate && en_ingredients[index].name.$invalid }">
-													<label>Name</label>
-													<input type="text"  v-model="item.name" >
-												</div>
-												<div class="col col-7" :class="{ 'error' : formstate && en_ingredients[index].value.$invalid }">
-													<label>Value</label>
-													<input type="text"  v-model="item.value" >
-												</div>
-												<div class="col col-1">
-													<label>&nbsp;</label>
-													<button class="secondary icon-trash" @click.stop.prevent="form.en.properties.ingredients.splice(index, 1)"></button>
-												</div>
+								</div>
+							</div>
+							<div class="card">
+								<div class="card-header">
+									<h5>Ingredients</h5>
+								</div>
+								<div  key="vi" class="card-section">
+									<label class="m-b-5">Vi Ingredients</label>
+									<div>
+										<div class="row" v-for="(item, index) in form.vi.properties.ingredients" :key="`index_${index}`">
+											<div class="col col-4" :class="{ 'error' : formstate && vi_ingredients[index].name.$invalid }">
+												<label>Name</label>
+												<input type="text"  v-model="item.name">
 											</div>
-											<div>
-												<button class="secondary icon-addition" @click.stop.prevent="form.en.properties.ingredients.push({ name : '', value : ''})"></button>
+											<div class="col col-7" :class="{ 'error' : formstate && vi_ingredients[index].value.$invalid}">
+												<label>Value</label>
+												<input type="text"  v-model="item.value">
+											</div>
+											<div class="col col-1">
+												<label>&nbsp;</label>
+												<button class="button secondary icon-trash" @click.stop.prevent="form.vi.properties.ingredients.splice(index, 1)"></button>
 											</div>
 										</div>
+										<div>
+											<button class="button secondary icon-addition" @click.stop.prevent="form.vi.properties.ingredients.push({ name : '', value : ''})"></button>
+										</div>
 									</div>
-									<div class="m-b-15">
-										<label class="m-b-5">Process</label>
-										<div class="p-l-30">
-											<div class="row" v-for="(item, index) in form.en.properties.process" :key="`index_${index}`">
-												<div class="col col-11 ck-200" :class="{ 'error' : formstate && en_process[index].value.$invalid }">
-													<label>Step</label>
-													<ckeditor  v-model="item.value" ></ckeditor>
-												</div>
-												<div class="col col-1">
-													<label>&nbsp;</label>
-													<button class="secondary icon-trash" @click.stop.prevent="form.en.properties.process.splice(index, 1)"></button>
-												</div>
+									<hr class="m-t-15 m-b-15">
+									<label class="m-b-5">En Ingredients</label>
+									<div >
+										<div class="row" v-for="(item, index) in form.en.properties.ingredients" :key="`index_${index}`">
+											<div class="col col-4" :class="{ 'error' : formstate && en_ingredients[index].name.$invalid }">
+												<label>Name</label>
+												<input type="text"  v-model="item.name" >
 											</div>
-											<div>
-												<button class="secondary icon-addition" @click.stop.prevent="form.en.properties.process.push({ value : ''})"></button>
+											<div class="col col-7" :class="{ 'error' : formstate && en_ingredients[index].value.$invalid }">
+												<label>Value</label>
+												<input type="text"  v-model="item.value" >
 											</div>
+											<div class="col col-1">
+												<label>&nbsp;</label>
+												<button class="button secondary icon-trash" @click.stop.prevent="form.en.properties.ingredients.splice(index, 1)"></button>
+											</div>
+										</div>
+										<div>
+											<button class="button secondary icon-addition" @click.stop.prevent="form.en.properties.ingredients.push({ name : '', value : ''})"></button>
 										</div>
 									</div>
 								</div>
 							</div>
+							<div class="card">
+								<div class="card-header">
+									<h5>Process</h5>
+								</div>
+								<div  key="vi" class="card-section">
+									<label class="m-b-5">Vi Process</label>
+									<div>
+										<div class="row" v-for="(item, index) in form.vi.properties.process" :key="`index_${index}`">
+											<div class="col col-11 ck-200" :class="{ 'error' : formstate && en_process[index].value.$invalid }">
+												<label>Step</label>
+												<ckeditor   v-model="item.value" ></ckeditor>
+											</div>
+											<div class="col col-1">
+												<label>&nbsp;</label>
+												<button class="button secondary icon-trash" @click.stop.prevent="form.vi.properties.process.splice(index, 1)"></button>
+											</div>
+										</div>
+										<div>
+											<button class="button secondary icon-addition" @click.stop.prevent="form.vi.properties.process.push({ value : ''})"></button>
+										</div>
+									</div>
+									<hr class="m-t-15 m-b-15">
+									<label class="m-b-5">En Process</label>
+									<div>
+										<div class="row" v-for="(item, index) in form.en.properties.process" :key="`index_${index}`">
+											<div class="col col-11 ck-200" :class="{ 'error' : formstate && en_process[index].value.$invalid }">
+												<label>Step</label>
+												<ckeditor   v-model="item.value" ></ckeditor>
+											</div>
+											<div class="col col-1">
+												<label>&nbsp;</label>
+												<button class="button secondary icon-trash" @click.stop.prevent="form.en.properties.process.splice(index, 1)"></button>
+											</div>
+										</div>
+										<div>
+											<button class="button secondary icon-addition" @click.stop.prevent="form.en.properties.process.push({ value : ''})"></button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col col-4">
 							<div class="card">
 								<div  key="seo" class="card-section">
 									<div class="row">
@@ -155,32 +171,36 @@
 								</div>
 							</div>
 							<div class="card">
-								<div  key="seo" class="card-section">
+								<div class="card-header">
+									<h5>Meta</h5>
+								</div>
+								<div class="card-section">
 									<div class="row">
-										<div class="col col-3">
-											<div class="m-b-15" :class="{ 'error' : formstate && $v.form.primary_image.$invalid}">
-												<div class="box-item-image" @click="gallery">
-													<template v-if="form.primary_image">
-														<img :src="form.primary_image.path" alt="">
-													</template>
-													<template v-else>
-														<i class="icon-add-section"></i>
-													</template>
-												</div>
+										<div class="col col-12 m-b-15" :class="{ 'error' : formstate && $v.form.primary_image.$invalid}">
+											<label class="m-b-15">
+												Primary image
+											</label>
+											<div class="box-item-image" @click="gallery">
+												<template v-if="form.primary_image">
+													<img :src="form.primary_image.path" alt="">
+												</template>
+												<template v-else>
+													<i class="icon-add-section"></i>
+												</template>
 											</div>
 										</div>
-										<div class="col col-9">
+										<div class="col col-12">
 											<div class="m-b-15" :class="{ 'error' : formstate && $v.form.meta.meta_title.$invalid}">
 												<label class="m-b-5">Meta title </label>
-												<input type="text"  v-model="form.meta.meta_title">
+												<textarea v-model="form.meta.meta_title" rows="2"></textarea>
 											</div>
 											<div class="m-b-15" :class="{ 'error' : formstate && $v.form.meta.meta_description.$invalid}">
 												<label class="m-b-5">Meta description</label>
-												<input type="text"  v-model="form.meta.meta_description">
+												<textarea v-model="form.meta.meta_description" rows="2"></textarea>
 											</div>
 											<div class="m-b-15" :class="{ 'error' : formstate && $v.form.meta.meta_keyword.$invalid}">
 												<label class="m-b-5">Meta keyword </label>
-												<input type="text"  v-model="form.meta.meta_keyword">
+												<textarea v-model="form.meta.meta_keyword" rows="2"></textarea>
 											</div>
 										</div>
 									</div>

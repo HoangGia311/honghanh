@@ -157,7 +157,7 @@ export default {
         remove(id){
             this.$confirm.show({
                 title : 'Confirm',
-                content : 'Do do want to delete this user ?',
+                content : 'Do do want to delete this record ?',
                 btnSave : 'Delete',
                 btnSaveClass : 'warning',
                 btnClose: 'Cancel',

@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["layout-layouts-error-vue"],{"41d0":function(t,e,n){"use strict";var r=n("de81"),a=n.n(r);a.a},de81:function(t,e,n){},fba3:function(t,e,n){"use strict";n.r(e);var r=function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("div",{staticClass:"error-layout"},[n("transition",{attrs:{name:"fade",mode:"out-in"}},[n("router-view")],1)],1)},a=[],o=(n("41d0"),n("2877")),u={},s=Object(o["a"])(u,r,a,!1,null,"798e94c3",null);e["default"]=s.exports}}]);
+//# sourceMappingURL=layout-layouts-error-vue.f4fb7b5a.js.map

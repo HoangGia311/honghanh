@@ -19,42 +19,61 @@
         </div>
         <div class="page-body">
             <div class="row">
-                <div class="col col-12">
+                <div class="col col-8">
                     <div class="card">
+						<div class="card-header">
+							<h5>Title</h5>
+						</div>
                         <div class="card-section">
-							<div class="m-b-15" :class="{ 'error' : formstate && $v.form.vi_name.$invalid}">
-								<label class="m-b-5">Name [Vi]</label>
-								<input type="text"  v-model="form.vi_name">
+							<div class="m-b-15" :class="{ 'error' : formstate && $v.form.vi.name.$invalid}">
+								<label class="m-b-5">Vi Title</label>
+								<input type="text"  v-model="form.vi.name">
 							</div>
-							<div class="m-b-15" :class="{ 'error' : formstate && $v.form.en_name.$invalid}">
-								<label class="m-b-5">Name [En]</label>
-								<input type="text"  v-model="form.en_name">
-							</div>
-							<div class="m-b-15" :class="{ 'error' : formstate && $v.form.primary_image.$invalid}">
-								<div class="box-item-image" @click="gallery">
-									<template v-if="form.primary_image">
-										<img :src="form.primary_image.path" alt="">
-									</template>
-									<template v-else>
-										<i class="icon-add-section"></i>
-									</template>
-								</div>
-							</div>
-							<div class="m-b-15" :class="{ 'error' : formstate && $v.form.meta_title.$invalid}">
-								<label class="m-b-5">Meta title</label>
-								<input type="text" v-model="form.meta_title">
-							</div>
-							<div class="m-b-15" :class="{ 'error' : formstate && $v.form.meta_description.$invalid}">
-								<label class="m-b-5">Meta description</label>
-								<input type="text" v-model="form.meta_description">
-							</div>
-							<div class="m-b-15" :class="{ 'error' : formstate && $v.form.meta_keyword.$invalid}">
-								<label class="m-b-5">Meta keyword</label>
-								<input type="text"  v-model="form.meta_keyword">
+							<div class="m-b-15" :class="{ 'error' : formstate && $v.form.en.name.$invalid}">
+								<label class="m-b-5">En title</label>
+								<input type="text"  v-model="form.en.name">
 							</div>
                         </div>
                     </div>
                 </div>
+				<div class="col col-4">
+					<div class="card">
+						<div class="card-header">
+							<h5>Meta</h5>
+						</div>
+						<div class="card-section">
+							<div class="row">
+								<div class="col col-12 m-b-15" :class="{ 'error' : formstate && $v.form.primary_image.$invalid}">
+									<label class="m-b-15">
+										Primary image
+									</label>
+									<div class="box-item-image" @click="gallery">
+										<template v-if="form.primary_image">
+											<img :src="form.primary_image.path" alt="">
+										</template>
+										<template v-else>
+											<i class="icon-add-section"></i>
+										</template>
+									</div>
+								</div>
+								<div class="col col-12">
+									<div class="m-b-15" :class="{ 'error' : formstate && $v.form.meta.meta_title.$invalid}">
+										<label class="m-b-5">Meta title </label>
+										<textarea v-model="form.meta.meta_title" rows="2"></textarea>
+									</div>
+									<div class="m-b-15" :class="{ 'error' : formstate && $v.form.meta.meta_description.$invalid}">
+										<label class="m-b-5">Meta description</label>
+										<textarea v-model="form.meta.meta_description" rows="2"></textarea>
+									</div>
+									<div class="m-b-15" :class="{ 'error' : formstate && $v.form.meta.meta_keyword.$invalid}">
+										<label class="m-b-5">Meta keyword </label>
+										<textarea v-model="form.meta.meta_keyword" rows="2"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
             </div>
         </div>
     </div>
@@ -69,12 +88,18 @@ export default {
 			formstate :false,
 			is_loading : false,
 			form :{
-				vi_name : '',
-				en_name: '',
+				vi:{
+					name : ''
+				},
+				en:{
+					name : ''
+				},
 				primary_image : null,
-				meta_title : '',
-				meta_description: '',
-				meta_keyword : '',
+				meta :{
+					meta_title : '',
+					meta_description: '',
+					meta_keyword : '',
+				}
 			}		
 		}
 	},
@@ -91,20 +116,9 @@ export default {
 			this.formstate = true 
 			if( this.is_loading  == false && this.$v.form.$invalid == false){
 				this.is_loading = true
-				this.create({
-					vi :{
-						name : this.form.vi_name
-					},
-					en : {
-						name : this.form.en_name
-					},
-					primary_image :  this.form.primary_image.id,
-					meta : {
-						meta_title : this.form.meta_title,
-						meta_description : this.form.meta_description,
-						meta_keyword : this.form.meta_keyword
-					} 
-				}).then((res)=>{
+				var formdata = JSON.parse(JSON.stringify(this.form))
+				formdata.primary_image = formdata.primary_image.id 
+				this.create(formdata).then((res)=>{
 					let { code , message = 'Oops.. Something Went Wrong.. !'} = res.data 
                     if( code ){
                         this.redirect({
@@ -124,23 +138,29 @@ export default {
 	validations(){
 		return {
 			form : {
-				vi_name : {
-					required
+				vi :{
+					name : {
+						required
+					}
 				},
-				en_name : {
-					required
+				en :{
+					name : {
+						required
+					}
 				},
 				primary_image : {
 					required
 				},
-				meta_title: {
-					required
-				},
-				meta_description: {
-					required
-				},
-				meta_keyword: {
-					required
+				meta :{ 
+					meta_title: {
+						required
+					},
+					meta_description: {
+						required
+					},
+					meta_keyword: {
+						required
+					}
 				}
 			}
 		}

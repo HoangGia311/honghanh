@@ -118,7 +118,7 @@
 														</div>
 														<div class="col col-6">
 															<div class="text-right">
-																<button class="secondary" @click="$gallery.show(img=>{ data.slider.data.push({ image : img , link : ''})})">
+																<button class="button secondary" @click="$gallery.show(img=>{ data.slider.data.push({ image : img , link : ''})})">
 																	+ Add Image
 																</button>
 															</div>
@@ -291,7 +291,7 @@
 														</div>
 														<div class="col col-6">
 															<div class="text-right">
-																<button class="secondary" @click="$cooking.show((cooking)=>{cooking.forEach((cook)=>{data.slider_cooking.data.push(cook)})})">
+																<button class="button secondary" @click="$cooking.show((cooking)=>{cooking.forEach((cook)=>{data.slider_cooking.data.push(cook)})})">
 																	+ Add Cooking
 																</button>
 															</div>
@@ -337,7 +337,7 @@
 																			{{ item.alias }}
 																		</td>
 																		<td class="td-actions">
-																			<button class="secondary icon-trash" @click.stop.prevent="data.slider_cooking.data.splice(index,1)"></button>
+																			<button class="button secondary icon-trash" @click.stop.prevent="data.slider_cooking.data.splice(index,1)"></button>
 																		</td>
 																	</tr>
 																</tbody>
@@ -391,7 +391,7 @@
 														</div>
 														<div class="col col-6">
 															<div class="text-right">
-																<button class="secondary" @click=" data.about_us_tabs.data.push({ image : '' , link : ''})">
+																<button class="button secondary" @click=" data.about_us_tabs.data.push({ image : '' , link : ''})">
 																	+ Add Tab
 																</button>
 															</div>
@@ -462,7 +462,7 @@
 														</div>
 														<div class="col col-6">
 															<div class="text-right">
-																<button class="secondary" @click="$product.show(pro=>{
+																<button class="button secondary" @click="$product.show(pro=>{
 																	pro.forEach((el)=>{
 																		data.product_tabs.data.push({ product: el , normal : '' ,active : ''})
 																	})	
@@ -530,7 +530,7 @@
 																			</div>
 																		</td>
 																		<td class="td-actions">
-																			<button class="secondary icon-trash" @click.stop.prevent="data.product_tabs.data.splice(index,1)"></button>
+																			<button class="button secondary icon-trash" @click.stop.prevent="data.product_tabs.data.splice(index,1)"></button>
 																		</td>
 																	</tr>
 																</tbody>
@@ -634,7 +634,7 @@
 														</div>
 														<div class="col col-12  m-t-10">
 															<div class="text-right">
-																<button class="secondary" @click="$gallery.show((img)=>{ data.distribution_modern.data.push({image : img , link : ''}) })">
+																<button class="button secondary" @click="$gallery.show((img)=>{ data.distribution_modern.data.push({image : img , link : ''}) })">
 																	+ Add Image
 																</button>
 															</div>
@@ -677,7 +677,7 @@
 														</div>
 														<div class="col col-12  m-t-10">
 															<div class="text-right">
-																<button class="secondary" @click="$gallery.show((img)=>{ data.distribution_heroca.data.push({image : img , link : ''}) })">
+																<button class=" button secondary" @click="$gallery.show((img)=>{ data.distribution_heroca.data.push({image : img , link : ''}) })">
 																	+ Add Image
 																</button>
 															</div>
@@ -720,7 +720,7 @@
 														</div>
 														<div class="col col-12  m-t-10">
 															<div class="text-right">
-																<button class="secondary" @click="$gallery.show((img)=>{ data.distribution_export.data.push({image : img , link : ''}) })">
+																<button class="button secondary" @click="$gallery.show((img)=>{ data.distribution_export.data.push({image : img , link : ''}) })">
 																	+ Add Image
 																</button>
 															</div>
@@ -804,7 +804,7 @@
 														</div>
 														<div class="col col-6">
 															<div class="text-right">
-																<button class="secondary" @click="$category.show((category)=>{category.forEach((cook)=>{data.post_tabs.data.push(cook)})})">
+																<button class="button secondary" @click="$category.show((category)=>{category.forEach((cook)=>{data.post_tabs.data.push(cook)})})">
 																	+ Add Category
 																</button>
 															</div>
@@ -833,7 +833,7 @@
 																			{{ item.alias }}
 																		</td>
 																		<td class="td-actions">
-																			<button class="secondary icon-trash" @click.stop.prevent="data.post_tabs.data.splice(index,1)"></button>
+																			<button class="button secondary icon-trash" @click.stop.prevent="data.post_tabs.data.splice(index,1)"></button>
 																		</td>
 																	</tr>
 																</tbody>
@@ -1339,7 +1339,6 @@ export default {
 				},
 				
 			],
-			editor: ClassicEditor,
             timeout: null,
             is_error : null,
 			is_loading : false,

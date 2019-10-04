@@ -25,9 +25,61 @@
 			</div>
 			<div class="page-body">
 				<div class="row">
-					<div class="col col-12">
+					<div class="col col-8">
 						<div class="card">
-							<div key="content" class="card-section">
+							<div class="card-header">
+								<h5>Title</h5>
+							</div>
+							<div class="card-section">
+								<div class="m-b-15" :class="{ 'error' : formstate && $v.form.vi.title.$invalid}">
+									<label class="m-b-5">Vi Title </label>
+									<input type="text"  v-model="form.vi.title">
+								</div>
+								<div class="m-b-15" :class="{ 'error' : formstate && $v.form.en.title.$invalid}">
+									<label class="m-b-5">En Title </label>
+									<input type="text"  v-model="form.en.title">
+								</div>
+							</div>
+						</div>
+						<div class="card">
+							<div class="card-header">
+								<h5>Description</h5>
+							</div>
+							<div  key="vi" class="card-section">
+								<div class="m-b-15" :class="{ 'error' : formstate && $v.form.vi.description.$invalid}">
+									<label class="m-b-5">Vi Description</label>
+									<textarea  v-model="form.vi.description" rows="5"></textarea>
+								</div>
+								<div class="m-b-15" :class="{ 'error' : formstate && $v.form.en.description.$invalid}">
+									<label class="m-b-5">En Description</label>
+									<textarea  v-model="form.en.description" rows="5"></textarea>
+								</div>
+								
+							</div>
+						</div>
+						<div class="card">
+							<div class="card-header">
+								<h5>Content</h5>
+							</div>
+							<div  key="en" class="card-section">
+								<div class="m-b-15" :class="{ 'error' : formstate && $v.form.vi.content.$invalid}">
+									<label class="m-b-5">Vi Content</label>
+									<ckeditor v-model="form.vi.content"></ckeditor>
+								</div>
+								
+								<div class="m-b-15" :class="{ 'error' : formstate && $v.form.en.content.$invalid}">
+									<label class="m-b-5">En Content</label>
+									<ckeditor v-model="form.en.content" ></ckeditor>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col col-4">
+						<div class="card">
+							<div class="card-header">
+								<h5>Meta</h5>
+							</div>
+							<div class="card-section">
 								<div class="row">
 									<div class="col col-12">
 										<div class="m-b-15" :class="{ 'error' : formstate && $v.form.category_id.$invalid}">
@@ -42,65 +94,33 @@
 							</div>
 						</div>
 						<div class="card">
-							<div  key="vi" class="card-section">
-								<div class="m-b-15" :class="{ 'error' : formstate && $v.form.vi.name.$invalid}">
-									<label class="m-b-5">Vi Title </label>
-									<input type="text"  v-model="form.vi.title">
-								</div>
-								<div class="m-b-15" :class="{ 'error' : formstate && $v.form.vi.description.$invalid}">
-									<label class="m-b-5">Vi Description</label>
-									<textarea  v-model="form.vi.description" rows="5"></textarea>
-								</div>
-								<div class="m-b-15" :class="{ 'error' : formstate && $v.form.vi.content.$invalid}">
-									<label class="m-b-5">Vi Content</label>
-									<!-- <ckeditor :editor="editor"  v-model="form.vi.content" ></ckeditor> -->
-									<ckeditor v-model="form.vi.content"></ckeditor>
-								</div>
-							</div>
-						</div>
-						<div class="card">
-							<div  key="en" class="card-section">
-								<div class="m-b-15" :class="{ 'error' : formstate && $v.form.en.name.$invalid}">
-									<label class="m-b-5">En Title </label>
-									<input type="text"  v-model="form.en.title">
-								</div>
-								<div class="m-b-15" :class="{ 'error' : formstate && $v.form.en.description.$invalid}">
-									<label class="m-b-5">En Description</label>
-									<textarea  v-model="form.en.description" rows="5"></textarea>
-								</div>
-								<div class="m-b-15" :class="{ 'error' : formstate && $v.form.en.content.$invalid}">
-									<label class="m-b-5">En Content</label>
-									<ckeditor v-model="form.en.content" ></ckeditor>
-								</div>
-							</div>
-						</div>
-						<div class="card">
-							<div  key="seo" class="card-section">
+							<div class="card-section">
 								<div class="row">
-									<div class="col col-3">
-										<div class="m-b-15" :class="{ 'error' : formstate && $v.form.primary_image.$invalid}">
-											<div class="box-item-image" @click="gallery">
-												<template v-if="form.primary_image">
-													<img :src="form.primary_image.path" alt="">
-												</template>
-												<template v-else>
-													<i class="icon-add-section"></i>
-												</template>
-											</div>
+									<div class="col col-12 m-b-15" :class="{ 'error' : formstate && $v.form.primary_image.$invalid}">
+										<label class="m-b-15">
+											Primary image
+										</label>
+										<div class="box-item-image" @click="gallery">
+											<template v-if="form.primary_image">
+												<img :src="form.primary_image.path" alt="">
+											</template>
+											<template v-else>
+												<i class="icon-add-section"></i>
+											</template>
 										</div>
 									</div>
-									<div class="col col-9">
+									<div class="col col-12">
 										<div class="m-b-15" :class="{ 'error' : formstate && $v.form.meta.meta_title.$invalid}">
 											<label class="m-b-5">Meta title </label>
-											<input type="text"  v-model="form.meta.meta_title">
+											<textarea v-model="form.meta.meta_title" rows="2"></textarea>
 										</div>
 										<div class="m-b-15" :class="{ 'error' : formstate && $v.form.meta.meta_description.$invalid}">
 											<label class="m-b-5">Meta description</label>
-											<input type="text"  v-model="form.meta.meta_description">
+											<textarea v-model="form.meta.meta_description" rows="2"></textarea>
 										</div>
 										<div class="m-b-15" :class="{ 'error' : formstate && $v.form.meta.meta_keyword.$invalid}">
 											<label class="m-b-5">Meta keyword </label>
-											<input type="text"  v-model="form.meta.meta_keyword">
+											<textarea v-model="form.meta.meta_keyword" rows="2"></textarea>
 										</div>
 									</div>
 								</div>
@@ -135,34 +155,12 @@ export default {
 				"vi" : {
 					"title" : "",
 					"description" : "",
-					"properties" : [
-						{
-							"name" : "Độ Đạm",
-							"value" : '',
-							"children" : []
-						},
-						{
-							"name" : "Thể tích",
-							"value" : '',
-							"children" : []
-						}
-					]
+					"content" : ""
 				},
 				"en" : {
 					"title" : "",
 					"description" : "",
-					"properties" : [
-						{
-							"name" : "Do dam",
-							"value" : '',
-							"children" : []
-						},
-						{
-							"name" : "The tich",
-							"value" : '',
-							"children" : []
-						}
-					]
+					"content" : ""
 				},
 				"meta" : {
 					"meta_title" : "",

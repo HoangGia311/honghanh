@@ -129,7 +129,8 @@ export default {
             },
             timeout: null,
             is_error : null,
-			is_loading : false,
+			is_loading : true,
+			is_loading_page : false,
 			form_create:{
 				show :false,
 				backdrop : false,
@@ -189,7 +190,8 @@ export default {
                 this.is_error = true
             })
             .finally(()=>{
-                this.is_loading = false
+				this.is_loading = false
+				this.is_loading_page = false
             })
         },
         reload(){
@@ -322,8 +324,10 @@ export default {
 		}
 	},
     async created(){
+		this.is_loading_page = true
 		await this.getGallery()
 		await this.getList(this.$route)
+		
     }
 }
 </script>

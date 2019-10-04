@@ -295,3 +295,16 @@ label {
     margin-left: 1rem;
   }
 }
+.error{
+	.note-editor.note-frame{
+		border-color: #ed6347;
+		background-color: #fbeae5;
+		.note-editable{
+			
+		}
+		
+	}
+	.note-editor.note-frame .note-editing-area .note-editable{
+		background-color: #fbeae5;
+	}
+}
